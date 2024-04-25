@@ -13,10 +13,10 @@
         android:theme="@style/Theme.E_commerce_app"
         tools:targetApi="31">
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.LoginSignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

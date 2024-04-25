@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ivoryWhite">#FFFFFFF0</color>
+    <color name="darkgray">#FFA9A9A9</color>
+    <color name="veryLightBlue">#FF7f7fff </color>
+    <color name="aquamarine">#FF7FFFD4</color>
+    <color name="ultraviolet">#FF8A2BE2</color>
+    <color name="darkPurple">#FF9932CC</color>
+    <color name="red">#FFFF0000</color>
 </resources>
