@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/ic_home"
+        android:id="@+id/homeFragment"
         android:title="Home"
-        android:icon="@drawable/ic_menu_outline_home" />
+        android:icon="@drawable/btm_nav_home_checked" />
 
     <item
-        android:id="@+id/ic_category"
+        android:id="@+id/categoryFragment"
         android:title="Category"
-        android:icon="@drawable/ic_menu_outline_category" />
+        android:icon="@drawable/btm_nav_category_checked" />
 
     <item
-        android:id="@+id/ic_info"
+        android:id="@+id/userInfoFragment"
         android:title="Info"
-        android:icon="@drawable/ic_menu_outline_info"/>
+        android:icon="@drawable/btm_nav_userinfo_checked"/>
 </menu>

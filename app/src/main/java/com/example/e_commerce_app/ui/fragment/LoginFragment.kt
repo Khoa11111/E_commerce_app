@@ -23,6 +23,7 @@ class LoginFragment : Fragment(), OnClickListener {
 
         // Onclick event here
         binding.goToSignup.setOnClickListener(this)
+        binding.btnSignup.setOnClickListener(this)
 
         return binding.root
     }
@@ -30,6 +31,7 @@ class LoginFragment : Fragment(), OnClickListener {
     override fun onClick(v: View?) {
         when(v) {
             binding.goToSignup -> v.findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+            binding.btnSignup -> v.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
         }
     }
 
