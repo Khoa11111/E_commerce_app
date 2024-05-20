@@ -8,5 +8,6 @@ data class User(
     val SDT: String?,
     val Address: String?,
     val imgUS: String?,
-    val thongTinThanhToan: String?
+    val thongTinThanhToan: String?,
+    val role: String?
 )

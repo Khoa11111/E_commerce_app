@@ -52,7 +52,7 @@ class SignupFragment : Fragment(), OnClickListener {
     fun register(view: View, name: String, email: String, password: String, phoneNumber: String) {
         GlobalScope.launch(Dispatchers.IO) {
             val response = try {
-                val user = User(null, name, password, email, phoneNumber, null, null, null)
+                val user = User(null, name, password, email, phoneNumber, null, null, null, null)
                 RetrofitInstance.UserApi.register(user)
             } catch (e: HttpException) {
                 Toast.makeText(requireContext(), "http error: ${e.message}", Toast.LENGTH_LONG).show()

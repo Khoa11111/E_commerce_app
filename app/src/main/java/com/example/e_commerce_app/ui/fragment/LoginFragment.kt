@@ -48,7 +48,7 @@ class LoginFragment : Fragment(), OnClickListener {
         GlobalScope.launch(Dispatchers.IO) {
             val response = try {
                 val user = User(null, null, binding.inputPassWord.text.toString()
-                    , binding.inputEmailAddress.text.toString(), null, null, null, null)
+                    , binding.inputEmailAddress.text.toString(), null, null, null, null, null)
                 RetrofitInstance.UserApi.login(user)
             } catch (e: HttpException) {
                 Toast.makeText(requireContext(), "http error: ${e.message}", Toast.LENGTH_LONG).show()

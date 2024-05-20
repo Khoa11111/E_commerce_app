@@ -6,5 +6,5 @@ data class ResponseData(
     val productData: ProductData?,
     val categoryData: CategoryData?,
     val cartData: CartData?,
-    val userData: UserData?
+    val userData: User?
 )
