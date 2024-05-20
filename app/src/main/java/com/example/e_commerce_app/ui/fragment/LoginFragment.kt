@@ -6,9 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentLoginBinding
+import com.example.e_commerce_app.model.User
+import com.example.e_commerce_app.util.RetrofitInstance
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class LoginFragment : Fragment(), OnClickListener {
 
@@ -23,7 +32,7 @@ class LoginFragment : Fragment(), OnClickListener {
 
         // Onclick event here
         binding.goToSignup.setOnClickListener(this)
-        binding.btnSignup.setOnClickListener(this)
+        binding.btnSignin.setOnClickListener(this)
 
         return binding.root
     }
@@ -31,7 +40,33 @@ class LoginFragment : Fragment(), OnClickListener {
     override fun onClick(v: View?) {
         when(v) {
             binding.goToSignup -> v.findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
-            binding.btnSignup -> v.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
+            binding.btnSignin -> login(v)
+        }
+    }
+
+    private fun login(view: View) {
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = try {
+                val user = User(null, null, binding.inputPassWord.text.toString()
+                    , binding.inputEmailAddress.text.toString(), null, null, null, null)
+                RetrofitInstance.UserApi.login(user)
+            } catch (e: HttpException) {
+                Toast.makeText(requireContext(), "http error: ${e.message}", Toast.LENGTH_LONG).show()
+                return@launch
+            } catch (e: IOException) {
+                Toast.makeText(requireContext(), "app error: ${e.message}", Toast.LENGTH_LONG).show()
+                return@launch
+            }
+
+            if (response.isSuccessful && response.body() != null) {
+                withContext(Dispatchers.Main) {
+                    if (response.body()!!.err.toString() == "1") {
+                        Toast.makeText(requireContext(), "Login fail, Please try again!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
+                    }
+                }
+            }
         }
     }
 

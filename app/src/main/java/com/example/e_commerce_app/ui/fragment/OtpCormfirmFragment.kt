@@ -10,9 +10,17 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentOtpCormfirmBinding
+import com.example.e_commerce_app.util.RetrofitInstance
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class OtpCormfirmFragment : Fragment(), OnClickListener {
 
@@ -27,6 +35,7 @@ class OtpCormfirmFragment : Fragment(), OnClickListener {
 
         // OnClick event here
         binding.back.setOnClickListener(this)
+        binding.btnOTPVerify.setOnClickListener(this)
 
         // TextChanged event here
         moveToNextOTPNumber()
@@ -173,6 +182,41 @@ class OtpCormfirmFragment : Fragment(), OnClickListener {
     override fun onClick(v: View?) {
         when(v) {
             binding.back -> v.findNavController().navigate(R.id.action_otpCormfirmFragment_to_signupFragment)
+            binding.btnOTPVerify -> ConfirmOTP(v)
+        }
+    }
+
+    // get OTP from UI
+    private fun getOTP(): String {
+        binding.apply {
+            val otp = num1.text.toString() + num2.text.toString() + num3.text.toString() + num4.text.toString() + num5.text.toString() + num6.text.toString()
+            return otp
+        }
+    }
+
+    // Check if otp is correct
+    private fun ConfirmOTP(view :View) {
+        val otp = getOTP()
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = try {
+                RetrofitInstance.UserApi.confirmOTP(otp)
+            } catch (e: HttpException) {
+                Toast.makeText(requireContext(), "http error: ${e.message}", Toast.LENGTH_LONG).show()
+                return@launch
+            } catch (e: IOException) {
+                Toast.makeText(requireContext(), "app error: ${e.message}", Toast.LENGTH_LONG).show()
+                return@launch
+            }
+
+            if (response.isSuccessful && response.body() != null) {
+                withContext(Dispatchers.Main) {
+                    if (response.body()!!.err.toString() == "1") {
+                        Toast.makeText(requireContext(), "Your otp is incorrect. Please try again!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        view.findNavController().navigate(R.id.action_otpCormfirmFragment_to_loginFragment)
+                    }
+                }
+            }
         }
     }
 

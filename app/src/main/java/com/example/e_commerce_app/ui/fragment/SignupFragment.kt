@@ -64,11 +64,8 @@ class SignupFragment : Fragment(), OnClickListener {
 
             if (response.isSuccessful && response.body() != null) {
                 withContext(Dispatchers.Main) {
-                    binding.apply {
-                        Log.d("check", response.body()!!.mes)
-                    }
+                    view.findNavController().navigate(R.id.action_signupFragment_to_otpCormfirmFragment)
                 }
-//                view.findNavController().navigate(R.id.action_signupFragment_to_otpCormfirmFragment)
             }
         }
     }

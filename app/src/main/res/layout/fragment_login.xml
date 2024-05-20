@@ -34,7 +34,7 @@
             android:background="@drawable/edittext_border"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
             android:paddingEnd="20dp"
@@ -65,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/inputEmailAddress" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSignup"
+            android:id="@+id/btnSignin"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_marginTop="100dp"
