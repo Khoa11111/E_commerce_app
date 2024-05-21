@@ -4,22 +4,23 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.model.Product
+import com.example.e_commerce_app.model.ProductData
 
-class ProductAdapter(val activity: Activity) :RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
-    private var productList: List<Product>?=null
-    fun setProducts(productList: List<Product>?){
-        this.productList = productList
-    }
+class ProductAdapter(private val productList:ArrayList<Product>) :RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter.MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item_home,parent,false)
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProductAdapter.MyViewHolder, position: Int) {
-
+        val currentItem=productList[position]
+        holder.TXTProductName.text=currentItem.product_name
+        holder.TxtProductPrice.text= currentItem.product_price.toString()
     }
 
     override fun getItemCount(): Int {
@@ -28,7 +29,9 @@ class ProductAdapter(val activity: Activity) :RecyclerView.Adapter<ProductAdapte
     }
 
     class MyViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        val ProductName= view.findViewById<View>(R.id.TxtProductName)
+        val IMGPR : ImageView = view.findViewById(R.id.IMGPR)
+        val TXTProductName:TextView=view.findViewById(R.id.TxtProductName)
+        val TxtProductPrice:TextView=view.findViewById(R.id.txtProductPrice)
     }
 
 }

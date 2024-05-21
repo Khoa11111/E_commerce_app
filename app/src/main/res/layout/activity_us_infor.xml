@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragment.UserInfoFragment">
-
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.UsInforActivity">
     <ScrollView
-            android:id="@+id/scrollViewProfile_fm_user"
+            android:id="@+id/scrollViewProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".activity.main.ProfileFragment">
@@ -15,6 +16,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:padding="20dp">
+
+                <androidx.cardview.widget.CardView
+                        android:id="@+id/cvIMGProfile"
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        app:cardCornerRadius="200dp">
+
+                    <ImageView
+                            android:id="@+id/imgProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/baseline_person_24"></ImageView>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                        android:id="@+id/profile_fullname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/cvIMGProfile"
+                        android:includeFontPadding="false"
+                        android:text="UTE App"
+                        android:textSize="20sp"></TextView>
+
+                <TextView
+                        android:id="@+id/id_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profile_fullname"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/cvIMGProfile"
+                        android:includeFontPadding="false"
+                        android:text="uteapp@gmail.com"
+                        android:textSize="14sp"></TextView>
+
+                <Button
+                        android:id="@+id/btn_back_profile"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/icon_back" />
+            </RelativeLayout>
+
             <LinearLayout
                     android:id="@+id/inf_fragment"
                     android:layout_width="match_parent"
@@ -23,10 +76,9 @@
                     android:paddingHorizontal="20dp"
                     android:paddingBottom="20dp">
                 <TextView
-                        android:layout_marginTop="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Account Settings"
+                        android:text="Contact Details"
                 />
                 <View
                         android:id="@+id/divider"
@@ -40,7 +92,7 @@
                         android:layout_height="50dp">
 
                     <TextView
-                            android:id="@+id/frpr_Profile"
+                            android:id="@+id/prEditProfile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
@@ -48,12 +100,31 @@
                             android:drawableStart="@drawable/baseline_person_24"
                             android:drawableEnd="@drawable/icon_next"
                             android:gravity="center_vertical"
-                            android:text="    Profile"
+                            android:text="    Edit Profile"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"></TextView>
 
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="30dp">
+
+                    <TextView
+                            android:id="@+id/prEmailAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:drawableStart="@drawable/icon_email"
+                            android:drawableEnd="@drawable/icon_next"
+                            android:gravity="center_vertical"
+                            android:text="    Email Address"
+                            android:textSize="15dp"
+                            android:textStyle="bold"></TextView>
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
@@ -66,13 +137,13 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:id="@+id/frpr_myOrder"
-                            android:drawableStart="@drawable/cart"
+                            android:id="@+id/prPhoneNumber"
+                            android:drawableStart="@drawable/icon_phone"
                             android:drawableEnd="@drawable/icon_next"
                             android:gravity="center_vertical"
-                            android:text="    My Order"
+                            android:text="    Phone number"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"></TextView>
 
                 </androidx.cardview.widget.CardView>
 
@@ -83,63 +154,49 @@
                         android:layout_marginBottom="10dp">
 
                     <TextView
-                            android:id="@+id/frpr_payment"
+                            android:id="@+id/prResidentialAddress"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:drawableStart="@drawable/icon_payment"
+                            android:drawableStart="@drawable/icon_address"
                             android:drawableEnd="@drawable/icon_next"
                             android:gravity="center_vertical"
-                            android:text="    Payment"
+                            android:text="    Residential Address"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"></TextView>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                        android:id="@+id/prSignOut"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="10dp">
 
                     <TextView
-                            android:id="@+id/frpr_mywallet"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:drawableStart="@drawable/icon_wallet"
+                            android:drawableStart="@drawable/icon_logout"
                             android:drawableEnd="@drawable/icon_next"
                             android:gravity="center_vertical"
-                            android:text="    My Wallet"
+                            android:text="    Sign out"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"></TextView>
 
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginBottom="10dp">
-
-                    <TextView
-                            android:id="@+id/frpr_storeinfor"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:drawableStart="@drawable/icon_store"
-                            android:drawableEnd="@drawable/icon_next"
-                            android:gravity="center_vertical"
-                            android:text="    My Store"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
 
             </LinearLayout>
+
+            <FrameLayout
+                    android:id="@+id/frame_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></FrameLayout>
         </LinearLayout>
 
     </ScrollView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

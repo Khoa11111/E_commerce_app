@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.RegisterSellerActivity">
+    <RelativeLayout android:id="@+id/content_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:ignore="MissingConstraints">
+        <ImageButton
+                android:id="@+id/Btn_Back"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/icon_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+        <TextView
+                android:id="@+id/heading"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thông tin đăng ký"
+                android:gravity="center"
+        />
+
+        <TextView
+                android:id="@+id/tv1"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="24.4dp"
+                android:text="Tên Shop"
+                android:layout_below="@+id/heading"
+        />
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/crv1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tv1"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="10dp">
+
+            <EditText
+                    android:id="@+id/edt_shop_name"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:drawableEnd="@drawable/icon"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_edt_seller"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+                android:id="@+id/tv2"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="24.4dp"
+                android:text="Ảnh"
+                android:layout_below="@+id/crv1"/>
+
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/crv2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/tv2"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="10dp">
+
+            <ImageView
+                    android:id="@+id/imgv_img_seller"
+                    android:src="@drawable/uploadImage"
+                    android:padding="5dp"
+                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:drawableEnd="@drawable/icon"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_edt_seller"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+                android:id="@+id/tv3"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="24.4dp"
+                android:text="Địa chỉ"
+                android:layout_below="@+id/crv2"/>
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/crv3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tv3"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="10dp">
+
+            <EditText
+                    android:id="@+id/edt_address_seller"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:drawableEnd="@drawable/icon"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_edt_seller"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+                android:id="@+id/tv4"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="24.4dp"
+                android:text="Số điện thoại"
+                android:layout_below="@+id/crv3"/>
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/crv4"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tv4"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="10dp">
+            <EditText
+                    android:id="@+id/spn_shop_kind"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:drawableEnd="@drawable/icon"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_edt_seller"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+                android:id="@+id/tv5"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="77.4dp"
+                android:layout_height="24.4dp"
+                android:text="Lý do"
+                android:layout_below="@+id/crv4"/>
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/crv5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/tv5"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                app:cardCornerRadius="10dp">
+
+            <EditText
+                    android:id="@+id/edt_reason_seller"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:drawableEnd="@drawable/icon"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_edt_seller"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+                android:id="@+id/btn_signup_seller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Đăng ký"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:backgroundTint="@color/red"
+                android:layout_below="@+id/crv5"/>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
