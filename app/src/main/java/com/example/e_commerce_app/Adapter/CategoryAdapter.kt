@@ -1,5 +1,6 @@
 package com.example.e_commerce_app.Adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
@@ -16,7 +17,7 @@ class CategoryAdapter(val onlick: CategoryOnItemClick) : ListAdapter<Category, C
         fun bind(item: Category) {
             binding.apply {
                 nameCategory.text = item.category_name
-                imgCategory.setImageBitmap(Utils.decodeBase64ToUri(item.category_image))
+                imgCategory.setImageBitmap(Utils.decodeBase64ToBitmap(item.category_image))
                 root.setOnClickListener {
                     onlick.onItemClick(item, position)
                 }

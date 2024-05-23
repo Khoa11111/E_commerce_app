@@ -8,6 +8,8 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Base64
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 object Utils {
     val USER_BASE_URL = "http://192.168.2.17:5000/"
@@ -22,7 +24,7 @@ object Utils {
     }
 
 
-    fun decodeBase64ToUri(base64String: String): Bitmap {
+    fun decodeBase64ToBitmap(base64String: String): Bitmap {
         val bytes = Base64.decode(base64String, Base64.DEFAULT)
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
         return bitmap
