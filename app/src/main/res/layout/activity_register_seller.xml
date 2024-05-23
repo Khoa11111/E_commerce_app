@@ -86,7 +86,6 @@
 
             <ImageView
                     android:id="@+id/imgv_img_seller"
-                    android:src="@drawable/uploadImage"
                     android:padding="5dp"
                     android:scaleType="fitCenter"
                     android:layout_width="match_parent"

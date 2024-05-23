@@ -18,8 +18,8 @@
 
         <ImageView
                 android:id="@+id/img_category"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
                 android:padding="8dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
@@ -32,12 +32,9 @@
                 android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/name_catego
-
-
-                ry"
+                android:id="@+id/name_category"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

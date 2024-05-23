@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireActivity(),"http error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             }catch (e: IOException){
-                Toast.makeText(requireActivity(),"app error ${e.message}", Toast.LENGTH_LONG).show()
+                //Toast.makeText(requireActivity(),"app error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             }
 
