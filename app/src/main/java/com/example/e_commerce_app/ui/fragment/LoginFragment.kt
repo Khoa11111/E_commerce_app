@@ -60,9 +60,10 @@ class LoginFragment : Fragment(), OnClickListener {
 
             if (response.isSuccessful && response.body() != null) {
                 withContext(Dispatchers.Main) {
-                    if (response.body()!!.err.toString() == "1") {
+                    if (response.body()!!.err.toString() == "1"){
                         Toast.makeText(requireContext(), "Login fail, Please try again!", Toast.LENGTH_SHORT).show()
                     } else {
+//                        DataLocalManager.setIdUser()
                         view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
                     }
                 }

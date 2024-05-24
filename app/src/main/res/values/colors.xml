@@ -10,4 +10,8 @@
     <color name="ultraviolet">#FF8A2BE2</color>
     <color name="darkPurple">#FF9932CC</color>
     <color name="red">#FFFF0000</color>
+    <color name="yellow_pri">#fece2f</color>
+    <color name="white100">#FFFFFF</color>
+    <color name="pri10">#1Afece2f</color>
+    <color name="pri100">#fece2f</color>
 </resources>

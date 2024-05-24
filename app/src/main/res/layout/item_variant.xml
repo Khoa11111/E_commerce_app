@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            tools:ignore="MissingConstraints">
+        <LinearLayout
+                android:weightSum="6"
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="match_parent">
+            <ImageView
+                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ul"
+                    android:layout_height="100dp"/>
+            <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="5">
+                <TextView
+                        android:gravity="center"
+                        android:text="Màu, kích cỡ "
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
+                <TextView
+                        android:gravity="center"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:text="Màu, kích cỡ "
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
+            </LinearLayout>
+            <TextView
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:text="Chọn"
+                    android:textColor="#03A9F4"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:layout_weight="1"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

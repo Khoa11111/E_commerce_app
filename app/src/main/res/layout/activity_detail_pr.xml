@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.DetailPrActivity">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawableLODT"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                    android:id="@+id/crv_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:cardCornerRadius="15dp">
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <ViewFlipper
+                            android:id="@+id/viewFlipperDT"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+
+                        <!-- Add images to flip through -->
+                        <ImageView
+                                android:id="@+id/imageFiller1"
+                                android:background="#FFFF"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ul" />
+                    </ViewFlipper>
+                    <ImageButton
+                            android:id="@+id/imageButtonback"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:background="@drawable/back_btn_image"
+                            android:contentDescription="@string/search"
+
+                            android:src="@drawable/icon_back"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                    <LinearLayout
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                        <ImageButton
+                                android:id="@+id/CartBtndtail"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_weight="1"
+                                android:background="@drawable/back_btn_image"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:src="@drawable/icon_cart"
+                                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+                        <ImageButton
+                                android:id="@+id/HomeBtnDt"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_weight="1"
+                                android:background="@drawable/back_btn_image"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:src="@drawable/icon_home"
+                                tools:ignore="SpeakableTextPresentCheck" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <ScrollView
+                    android:layout_below="@+id/crv_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_margin="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/nameProduct"
+                                android:text="PRODUCT NAME"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                        </TextView>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <TextView
+                                    android:id="@+id/scoreofproduct"
+                                    android:text="3.5"
+                                    android:layout_width="50dp"
+                                    android:layout_height="wrap_content"/>
+
+                            <RatingBar
+                                    android:id="@+id/productRatingBar"
+                                    style="@style/Widget.AppCompat.RatingBar.Small"
+                                    android:progressTint="@color/yellow_pri"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="#AF1212"
+                                    android:isIndicator="true"
+                                    android:numStars="5"
+                                    android:rating="3.5"
+                                    android:stepSize="0.5" />
+                            <TextView
+                                    android:paddingStart="10dp"
+                                    android:id="@+id/sells"
+                                    android:text="| Đã bán ? "
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            <TextView
+                                    android:id="@+id/Product_priceDT"
+                                    android:textSize="25dp"
+                                    android:text="6.290.000 đ"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:id="@+id/loslg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/motaSPDetail"
+
+                            android:gravity="right"
+                            android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                                android:id="@+id/btn_removeedtsl"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                app:cardBackgroundColor="@color/yellow_pri"
+                                app:cardCornerRadius="5dp">
+
+                            <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/icon_neg" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                                android:id="@+id/edtSlgCart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:inputType="number"
+                                android:paddingHorizontal="20dp"
+                                tools:ignore="TouchTargetSizeCheck" />
+
+                        <androidx.cardview.widget.CardView
+                                android:id="@+id/btn_plusedtsl"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                app:cardBackgroundColor="@color/yellow_pri"
+                                app:cardCornerRadius="5dp">
+
+                            <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/baseline_exposure_plus_1_24" />
+                        </androidx.cardview.widget.CardView>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                tools:ignore="MissingConstraints">
+                            <LinearLayout
+                                    android:weightSum="6"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent" android:layout_height="match_parent">
+                                <ImageView
+                                        android:layout_margin="10dp"
+                                        android:layout_width="100dp"
+                                        android:layout_weight="1"
+                                        android:src="@drawable/ul"
+                                        android:layout_height="100dp"/>
+                                <LinearLayout
+                                        android:weightSum="2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical"
+                                        android:layout_weight="5">
+                                    <TextView
+                                            android:gravity="center"
+                                            android:text="Màu, kích cỡ "
+                                            android:layout_weight="1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"/>
+                                    <TextView
+                                            android:gravity="center"
+                                            android:textColor="#000000"
+                                            android:textStyle="bold"
+                                            android:text="Màu, kích cỡ "
+                                            android:layout_weight="1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"/>
+                                </LinearLayout>
+                                <TextView
+                                        android:gravity="center"
+                                        android:textAlignment="center"
+                                        android:text="Chọn"
+                                        android:textColor="#03A9F4"
+                                        android:textStyle="bold"
+                                        android:textSize="24dp"
+                                        android:layout_weight="1"
+                                        android:layout_width="100dp"
+                                        android:layout_height="match_parent"/>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:id="@+id/linerPRShop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                                android:id="@+id/cardPRShop"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/l_sp"
+                                android:layout_marginTop="5dp">
+
+                            <LinearLayout
+                                    android:id="@+id/linerPRShopdetail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:orientation="vertical">
+
+                                <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:orientation="horizontal">
+
+                                    <ImageView
+                                            android:id="@+id/imgShopDetai"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="60dp"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/aklogo"></ImageView>
+
+                                    <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_weight="1.3"
+                                            android:orientation="vertical">
+
+                                        <TextView
+                                                android:id="@+id/namePRShop"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_weight="1"
+                                                android:gravity="center_vertical"
+                                                android:includeFontPadding="false"
+                                                android:text="ten shop"
+                                                android:textSize="12dp"
+                                                android:textStyle="bold"
+                                                tools:ignore="TextSizeCheck" />
+
+                                        <LinearLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_weight="1"
+                                                android:orientation="horizontal">
+
+                                            <androidx.cardview.widget.CardView
+                                                    android:id="@+id/colorStatus"
+                                                    android:layout_width="10dp"
+                                                    android:layout_height="10dp"
+                                                    android:layout_gravity="center"
+                                                    app:cardBackgroundColor="#00B527"
+                                                    app:cardCornerRadius="30dp" />
+
+                                            <TextView
+                                                    android:id="@+id/CheckStatus"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    android:layout_marginLeft="10dp"
+                                                    android:layout_weight="2"
+                                                    android:gravity="center_vertical"
+                                                    android:text="Online"
+                                                    android:textSize="12dp"
+                                                    tools:ignore="TextSizeCheck" />
+
+                                        </LinearLayout><LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                        <ImageView
+                                                android:layout_width="10dp"
+                                                android:layout_height="10dp"
+                                                android:src="@drawable/baseline_location_pin_24"
+                                                android:layout_gravity="center">
+
+                                        </ImageView>
+
+                                        <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_marginLeft="10dp"
+                                                android:layout_weight="2"
+                                                android:gravity="center_vertical"
+                                                android:text="Địa chỉ"
+                                                android:textSize="12dp"
+                                                tools:ignore="TextSizeCheck" />
+
+                                    </LinearLayout>
+
+                                    </LinearLayout>
+
+                                    <TextView
+                                            android:id="@+id/viewShop"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="2.5"
+                                            android:gravity="center"
+                                            android:padding="5dp"
+                                            android:text="Xem Shop"
+                                            android:textColor="@color/yellow_pri" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/cardPRShop"
+                            android:orientation="vertical"
+                            android:layout_marginVertical="5dp"
+                            android:background="@color/white100">
+                        <TextView
+                                android:id="@+id/spLQ"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/cardPRShop"
+                                android:layout_margin="10dp"
+                                android:includeFontPadding="false"
+                                android:text="SẢN PHẨM KHÁC CỦA SHOP"
+                                android:textColor="@color/black"
+                                android:textSize="16dp"
+                                android:textStyle="bold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerSPDetail"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@id/spLQ"
+                                app:spanCount="1"
+                                tools:ignore="NotSibling">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+                        <TextView
+                                android:text="Đánh giá sản phẩm"
+                                android:layout_margin="10dp"
+                                android:includeFontPadding="false"
+                                android:textSize="16dp"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rcv_rating"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <Button
+                            android:id="@+id/btnadd_Cart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginRight="10dp"
+                            android:backgroundTint="@color/yellow_pri"
+                            android:drawableLeft="@drawable/cart"
+                            android:gravity="center"
+                            android:minHeight="32dp"
+                            android:text="Thêm"
+                            android:textColor="@color/white100" />
+                </LinearLayout>
+            </ScrollView>
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
