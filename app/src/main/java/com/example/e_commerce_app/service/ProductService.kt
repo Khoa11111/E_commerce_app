@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ProductService {
 
-    @GET("/api/v1/category")
-    suspend fun getAllCategory(): Response<ResponseData>
+    @GET("/api/v1/product")
+    suspend fun getAllProduct(): Response<ResponseData>
 }

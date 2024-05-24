@@ -51,9 +51,10 @@ class CategoryFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {
-                        val listCategory = response.body()!!.categoryData?.rows?.map {
+                        val listCategory = response.body()!!.categoryData!!.rows.map {
                             Category(it.id, it.category_name, it.category_image, it.createdAt, it.updatedAt)
-                        } ?: emptyList()
+                        }
+
                         withContext(Dispatchers.Main) {
                             categoryAdapter.submitList(listCategory)
                             binding.recylerCategory.apply {

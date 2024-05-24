@@ -11,7 +11,7 @@ import com.example.e_commerce_app.databinding.CategoryItemBinding
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.util.Utils
 
-class CategoryAdapter(val onlick: CategoryOnItemClick) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffUtil()) {
+class CategoryAdapter(val onclick: CategoryOnItemClick) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffUtil()) {
 
     class CategoryViewHolder(val binding: CategoryItemBinding, val onlick: CategoryOnItemClick) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Category) {
@@ -37,7 +37,7 @@ class CategoryAdapter(val onlick: CategoryOnItemClick) : ListAdapter<Category, C
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CategoryViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.category_item, p0, false)
-        return CategoryViewHolder(binding = CategoryItemBinding.bind(view), onlick)
+        return CategoryViewHolder(binding = CategoryItemBinding.bind(view), onclick)
     }
 
     override fun onBindViewHolder(p0: CategoryViewHolder, p1: Int) {
