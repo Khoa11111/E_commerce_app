@@ -1,21 +1,17 @@
 package com.example.e_commerce_app.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
-import com.example.e_commerce_app.R
-import com.example.e_commerce_app.ViewModel.HomeViewModel
 import com.example.e_commerce_app.databinding.FragmentHomeBinding
-import com.example.e_commerce_app.databinding.FragmentSignupBinding
+import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
+import com.example.e_commerce_app.model.Shop
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -26,52 +22,62 @@ import java.io.IOException
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    lateinit var productList:ArrayList<Product>
+    private lateinit var productAdpter: ProductAdapter
+    private val productOnItemClick by lazy {
+        object : ProductAdapter.ProductOnItemClick {
+            override fun onItemClick(product: Product, position: Int) {
+                Toast.makeText(requireContext(), product.product_name, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.RcvHome.layoutManager=LinearLayoutManager(requireContext())
-        binding.RcvHome.setHasFixedSize(true)
-        getProductData()
+
+        setupProductRecycler()
+
         return binding.root
     }
 
-    private fun getProductData(){
-        productList = ArrayList<Product>()
+    private fun setupProductRecycler() {
+        productAdpter = ProductAdapter(productOnItemClick)
+        getListProduct(productAdpter)
+    }
+
+    private fun getListProduct(productAdapter: ProductAdapter) {
         GlobalScope.launch(Dispatchers.IO) {
-            val response = try {
-                RetrofitInstance.UserApi.getAllProduct()
-            }catch (e: HttpException){
+            try {
+                val response = RetrofitInstance.ProductApi.getAllProduct()
+
+                if (response.isSuccessful && response.body() != null) {
+                    if (response.body()!!.err.toString() == "0") {
+                        val listProduct = response.body()!!.productData!!.rows.map {
+                            val category = Category(it.category.id, it.category.category_name, it.category.category_image, it.category.createdAt, it.category.updatedAt)
+                            val shop = Shop(it.shop.id, it.shop.shop_name, it.shop.Image_shop, it.shop.Address, it.shop.id_user, it.shop.status, it.shop.createdAt, it.shop.updatedAt)
+                            Product(it.category_id, it.product_name, it.product_decs, it.category_id, it.status, it.id_shop, it.product_review, it.product_price, it.product_image, shop, category, it.createdAt, it.updatedAt)
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            productAdapter.submitList(listProduct)
+                            binding.RcvHome.apply {
+                                layoutManager = GridLayoutManager(requireContext(), 2)
+                                setHasFixedSize(true)
+                                adapter = productAdapter
+                            }
+                        }
+                    }
+                }
+            } catch (e: HttpException){
                 Toast.makeText(requireActivity(),"http error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
-            }catch (e: IOException){
+            } catch (e: IOException){
                 Toast.makeText(requireActivity(),"app error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             }
-
-
-            if (response.isSuccessful && response.body() !=null) {
-                val products = response.body()!!.productData?.rows
-                withContext(Dispatchers.Main){
-                    binding.apply {
-                        products?.forEach { product ->
-                            productList.add(product)
-                            Log.d("ProductList", "getProductData:${productList.toString()} ")
-                        }
-                    }
-                    binding.RcvHome.adapter=ProductAdapter(productList)
-                }
-                // Use the retrieved product data here
-                // Update UI, store in database, etc.
-            } else {
-                // Handle API errors (e.g., non-zero error code)
-                Log.e("Retrofit", "API error: ${response.message()}")
-            }
-
-
         }
     }
 

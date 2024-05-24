@@ -37,10 +37,10 @@
                 android:name=".ui.UsInforActivity"
                 android:exported="false"/>
         <activity
-                android:name=".ui.HomeActivity"
+                android:name=".ui.LoginSignupActivity"
                 android:exported="false"/>
         <activity
-                android:name=".ui.LoginSignupActivity"
+                android:name=".ui.HomeActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

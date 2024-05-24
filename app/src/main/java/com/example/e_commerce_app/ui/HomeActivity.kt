@@ -1,13 +1,18 @@
 package com.example.e_commerce_app.ui
 
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityHomeBinding
+import java.io.ByteArrayOutputStream
 
 class HomeActivity : AppCompatActivity() {
 
