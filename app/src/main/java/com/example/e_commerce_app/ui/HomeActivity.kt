@@ -6,19 +6,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import android.util.Log
+import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityHomeBinding
-import java.io.ByteArrayOutputStream
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
+    private lateinit var navcontroller: NavController
+
+
+    private val args: HomeActivityArgs by navArgs()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,15 +31,20 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpNavController()
+
         onSelectedItemNav()
     }
 
     private fun onSelectedItemNav() {
-        binding.bottomNavigationView.setupWithNavController(navController)
+        binding.bottomNavigationView.setupWithNavController(navcontroller)
     }
 
     private fun setUpNavController() {
+        val bundle = Bundle()
+        bundle.putParcelable("currentUser", args.currentUser)
+
         navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragmentHome) as NavHostFragment
-        navController = navHostFragment.navController
+        navcontroller = navHostFragment.findNavController()
+        navcontroller.setGraph(R.navigation.nav_graph_home, bundle)
     }
 }

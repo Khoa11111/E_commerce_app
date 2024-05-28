@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_login_signup"
-    app:startDestination="@id/loginFragment">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph_login_signup"
+            app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.e_commerce_app.ui.fragment.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+            android:id="@+id/loginFragment"
+            android:name="com.example.e_commerce_app.ui.fragment.LoginFragment"
+            android:label="fragment_login"
+            tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
+                android:id="@+id/action_loginFragment_to_signupFragment"
+                app:destination="@id/signupFragment"/>
         <action
-            android:id="@+id/action_loginFragment_to_signupFragment2"
-            app:destination="@id/signupFragment" />
+                android:id="@+id/action_loginFragment_to_signupFragment2"
+                app:destination="@id/signupFragment"/>
         <action
-            android:id="@+id/action_loginFragment_to_homeActivity"
-            app:destination="@id/homeActivity" />
+                android:id="@+id/action_loginFragment_to_homeActivity"
+                app:destination="@id/homeActivity"/>
+
     </fragment>
     <fragment
-        android:id="@+id/otpCormfirmFragment"
-        android:name="com.example.e_commerce_app.ui.fragment.OtpCormfirmFragment"
-        android:label="fragment_otp_cormfirm"
-        tools:layout="@layout/fragment_otp_cormfirm" >
+            android:id="@+id/otpCormfirmFragment"
+            android:name="com.example.e_commerce_app.ui.fragment.OtpCormfirmFragment"
+            android:label="fragment_otp_cormfirm"
+            tools:layout="@layout/fragment_otp_cormfirm">
         <action
-            android:id="@+id/action_otpCormfirmFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
-        <action android:id="@+id/action_otpCormfirmFragment_to_loginFragment" app:destination="@id/loginFragment"/>
+                android:id="@+id/action_otpCormfirmFragment_to_signupFragment"
+                app:destination="@id/signupFragment"/>
+        <action
+                android:id="@+id/action_otpCormfirmFragment_to_loginFragment"
+                app:destination="@id/loginFragment"/>
     </fragment>
     <fragment
-        android:id="@+id/signupFragment"
-        android:name="com.example.e_commerce_app.ui.fragment.SignupFragment"
-        android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
+            android:id="@+id/signupFragment"
+            android:name="com.example.e_commerce_app.ui.fragment.SignupFragment"
+            android:label="fragment_signup"
+            tools:layout="@layout/fragment_signup">
         <action
-            android:id="@+id/action_signupFragment_to_otpCormfirmFragment"
-            app:destination="@id/otpCormfirmFragment" />
+                android:id="@+id/action_signupFragment_to_otpCormfirmFragment"
+                app:destination="@id/otpCormfirmFragment"/>
         <action
-            android:id="@+id/action_signupFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+                android:id="@+id/action_signupFragment_to_loginFragment"
+                app:destination="@id/loginFragment"/>
     </fragment>
     <activity
-        android:id="@+id/homeActivity"
-        android:name="com.example.e_commerce_app.ui.HomeActivity"
-        android:label="activity_home"
-        tools:layout="@layout/activity_home" />
+            android:id="@+id/homeActivity"
+            android:name="com.example.e_commerce_app.ui.HomeActivity"
+            android:label="activity_home"
+            tools:layout="@layout/activity_home">
+        <argument
+                android:name="currentUser"
+                app:argType="com.example.e_commerce_app.model.User"/>
+    </activity>
+
 </navigation>

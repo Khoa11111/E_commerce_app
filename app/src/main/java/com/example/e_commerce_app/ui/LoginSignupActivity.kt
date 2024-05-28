@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityLoginSignupBinding
 import com.example.e_commerce_app.model.User
@@ -32,8 +33,8 @@ class LoginSignupActivity : AppCompatActivity() {
 
     private fun setUpNavController() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragmentLoginSignup) as NavHostFragment
-        navController = navHostFragment.navController
+        navController = navHostFragment.findNavController()
+        navController.setGraph(R.navigation.nav_graph_login_signup)
     }
-
 
 }

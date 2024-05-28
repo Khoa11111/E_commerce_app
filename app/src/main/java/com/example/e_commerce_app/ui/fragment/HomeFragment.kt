@@ -1,6 +1,7 @@
 package com.example.e_commerce_app.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.e_commerce_app.databinding.FragmentHomeBinding
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
+import com.example.e_commerce_app.model.User
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,6 +41,8 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setupProductRecycler()
+        val currentUser = arguments?.getParcelable<User>("currentUser")
+        Log.d("checking", currentUser.toString())
 
         return binding.root
     }
@@ -56,9 +60,38 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {
                         val listProduct = response.body()!!.productData!!.rows.map {
-                            val category = Category(it.category.id, it.category.category_name, it.category.category_image, it.category.createdAt, it.category.updatedAt)
-                            val shop = Shop(it.shop.id, it.shop.shop_name, it.shop.Image_shop, it.shop.Address, it.shop.id_user, it.shop.status, it.shop.createdAt, it.shop.updatedAt)
-                            Product(it.category_id, it.product_name, it.product_decs, it.category_id, it.status, it.id_shop, it.product_review, it.product_price, it.product_image, shop, category, it.createdAt, it.updatedAt)
+                            val category = Category(
+                                it.category.id,
+                                it.category.category_name,
+                                it.category.category_image,
+                                it.category.createdAt,
+                                it.category.updatedAt
+                            )
+                            val shop = Shop(
+                                it.shop.id,
+                                it.shop.shop_name,
+                                it.shop.Image_shop,
+                                it.shop.Address,
+                                it.shop.id_user,
+                                it.shop.status,
+                                it.shop.createdAt,
+                                it.shop.updatedAt
+                            )
+                            Product(
+                                it.category_id,
+                                it.product_name,
+                                it.product_decs,
+                                it.category_id,
+                                it.status,
+                                it.id_shop,
+                                it.product_review,
+                                it.product_price,
+                                it.product_image,
+                                shop,
+                                category,
+                                it.createdAt,
+                                it.updatedAt
+                            )
                         }
 
                         withContext(Dispatchers.Main) {
@@ -71,11 +104,11 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
-            } catch (e: HttpException){
-                Toast.makeText(requireActivity(),"http error ${e.message}", Toast.LENGTH_LONG).show()
+            } catch (e: HttpException) {
+                Toast.makeText(requireActivity(), "http error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
-            } catch (e: IOException){
-                Toast.makeText(requireActivity(),"app error ${e.message}", Toast.LENGTH_LONG).show()
+            } catch (e: IOException) {
+                Toast.makeText(requireActivity(), "app error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             }
         }
