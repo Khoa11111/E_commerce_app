@@ -64,4 +64,6 @@ dependencies {
 
     // implement coil
     implementation("io.coil-kt:coil:2.6.0")
+
+    //implement shapreferent
 }

@@ -8,13 +8,10 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentLoginBinding
 import com.example.e_commerce_app.model.User
-import com.example.e_commerce_app.ui.LoginSignupActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -75,7 +72,7 @@ class LoginFragment : Fragment(), OnClickListener {
                     if (response.body()!!.err.toString() == "1") {
                         Toast.makeText(requireContext(), "Login fail, Please try again!", Toast.LENGTH_SHORT).show()
                     } else {
-//                        DataLocalManager.setIdUser()
+
                         val userdata = response.body()!!.userData!!
                         val user = User(
                             userdata.id,
@@ -88,7 +85,7 @@ class LoginFragment : Fragment(), OnClickListener {
                             null,
                             userdata.role
                         )
-                        val action = LoginFragmentDirections.actionLoginFragmentToHomeActivity(user)
+                        val action = LoginFragmentDirections.actionLoginFragmentToHomeActivity()
                         view.findNavController().navigate(action)
                     }
                 }

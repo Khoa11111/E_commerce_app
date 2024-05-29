@@ -22,7 +22,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var navcontroller: NavController
 
 
-    private val args: HomeActivityArgs by navArgs()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +39,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUpNavController() {
-        val bundle = Bundle()
-        bundle.putParcelable("currentUser", args.currentUser)
+
 
         navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragmentHome) as NavHostFragment
         navcontroller = navHostFragment.findNavController()
-        navcontroller.setGraph(R.navigation.nav_graph_home, bundle)
+        navcontroller.setGraph(R.navigation.nav_graph_home)
     }
 }

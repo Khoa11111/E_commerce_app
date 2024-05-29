@@ -41,8 +41,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setupProductRecycler()
-        val currentUser = arguments?.getParcelable<User>("currentUser")
-        Log.d("checking", currentUser.toString())
 
         return binding.root
     }
@@ -102,6 +100,7 @@ class HomeFragment : Fragment() {
                                 adapter = productAdapter
                             }
                         }
+
                     }
                 }
             } catch (e: HttpException) {

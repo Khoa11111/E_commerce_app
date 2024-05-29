@@ -15,7 +15,7 @@ class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, Pro
     class ProductViewHolder(val binding: ProductItemHomeBinding, val onclick: ProductOnItemClick) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Product) {
             binding.apply {
-                IMGPR.setImageBitmap(Utils.decodeBase64ToBitmap(item.product_image))
+                IMGPR.setImageBitmap(item.product_image?.let { Utils.decodeBase64ToBitmap(it) })
                 TxtProductName.text = item.product_name
                 txtProductPrice.text = item.product_price.toString()
                 root.setOnClickListener {

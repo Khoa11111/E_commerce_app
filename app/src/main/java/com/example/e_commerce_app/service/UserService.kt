@@ -1,9 +1,6 @@
 package com.example.e_commerce_app.service
 
-import com.example.e_commerce_app.model.Cart
-import com.example.e_commerce_app.model.ResponseData
-import com.example.e_commerce_app.model.Shop
-import com.example.e_commerce_app.model.User
+import com.example.e_commerce_app.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,4 +35,11 @@ interface UserService {
 
     @POST("/api/v1/user/login")
     suspend fun login(@Body user: User): Response<ResponseData>
+
+    @POST("/api/v1/registorseller")
+    suspend fun RegSeller(@Body registorSellerData: RegistorSellerData): Response<ResponseData>
+
+    @PUT("/api/v1/registorseller/finalRegistorSeller/{otp}")
+    suspend fun confirmOTPSeller(@Path("otp") otp:String): Response<ResponseData>
+
 }

@@ -17,7 +17,7 @@ class CategoryAdapter(val onclick: CategoryOnItemClick) : ListAdapter<Category, 
         fun bind(item: Category) {
             binding.apply {
                 nameCategory.text = item.category_name
-                imgCategory.setImageBitmap(Utils.decodeBase64ToBitmap(item.category_image))
+                imgCategory.setImageBitmap(item.category_image?.let { Utils.decodeBase64ToBitmap(it) })
                 root.setOnClickListener {
                     onlick.onItemClick(item, position)
                 }
