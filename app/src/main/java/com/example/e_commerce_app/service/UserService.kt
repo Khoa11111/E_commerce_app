@@ -2,11 +2,7 @@ package com.example.e_commerce_app.service
 
 import com.example.e_commerce_app.model.*
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface UserService {
     @POST("/api/v1/user/register")
@@ -41,5 +37,8 @@ interface UserService {
 
     @PUT("/api/v1/registorseller/finalRegistorSeller/{otp}")
     suspend fun confirmOTPSeller(@Path("otp") otp:String): Response<ResponseData>
+
+    @GET("/api/v1/user/current/{id}")
+    suspend fun getUserSearch(@Path("id") id:String): Response<ResponseData>
 
 }

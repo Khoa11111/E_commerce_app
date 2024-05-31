@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rl_item_product_rcv_order_detail"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                android:layout_height="match_parent">
+    <ImageView
+            android:id="@+id/img_producr_buyer_order"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/icon_truck" />
+
+    <TextView
+            android:id="@+id/tv_product_name_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/img_producr_buyer_order"
+            android:text="Tên sản phẩm"
+            android:textColor="#3A3737"
+            android:textSize="18dp" />
+
+    <TextView
+            android:id="@+id/tv_product_quantity_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_product_name_order"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/img_producr_buyer_order"
+            android:text="SL"
+            android:textColor="#3A3737"
+            android:textSize="18dp" />
+
+    <TextView
+            android:id="@+id/tv8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_product_name_order"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/tv_product_quantity_order"
+            android:text="|"
+            android:textColor="#3A3737"
+            android:textSize="18dp" />
+
+    <TextView
+            android:id="@+id/tv_product_price_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_product_name_order"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/tv8"
+            android:text="100.000d"
+            android:textColor="#3A3737"
+            android:textSize="18dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_danhgia"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_corner_btn_nav"
+            android:text="Viết đánh giá"
+            android:textColor="#0392FF"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:layout_below="@+id/tv8"
+            android:layout_toEndOf="@+id/img_producr_buyer_order"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"/>
+
+</RelativeLayout>

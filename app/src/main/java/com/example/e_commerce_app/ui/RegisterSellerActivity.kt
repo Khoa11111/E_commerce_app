@@ -56,7 +56,7 @@ class RegisterSellerActivity : AppCompatActivity() {
             imageContract.launch("image/*")
         }
         binding.btnSignupSeller.setOnClickListener{
-            registerSeller(binding.edtShopName.text.toString(),binding.edtAddressSeller.text.toString(),2,"vanphattk159@gmail.com",binding.edtReasonSeller.text.toString())
+            registerSeller(binding.edtShopName.text.toString(),binding.edtAddressSeller.text.toString(),2,"vanphattk159@gmail.com",binding.edtReasonSeller.text.toString(),base64String)
         }
         binding.BtnBack.setOnClickListener{
             val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -66,10 +66,10 @@ class RegisterSellerActivity : AppCompatActivity() {
     }
 
 
-    fun registerSeller(shop_name: String, Address: String, id_user: Int, email_user: String,reason:String) {
+    fun registerSeller(shop_name: String, Address: String, id_user: Int, email_user: String,reason:String,image_shop: String) {
         GlobalScope.launch(Dispatchers.IO) {
             val response = try {
-                val registorSellerData = RegistorSellerData(null, shop_name, Address, id_user.toString(), reason, email_user, null, null)
+                val registorSellerData = RegistorSellerData(null, shop_name, Address, id_user.toString(), reason, email_user,image_shop, null, null)
 
                 RetrofitInstance.UserApi.RegSeller(registorSellerData)
             } catch (e: HttpException) {

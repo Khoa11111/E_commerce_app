@@ -7,6 +7,7 @@ data class RegistorSellerData(
     val id_user: String,
     val reason: String,
     val email_user: String,
+    val Image_shop: String?,
     val updatedAt: String?,
     val createdAt: String?,
 )

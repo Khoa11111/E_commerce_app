@@ -1,5 +1,6 @@
 package com.example.e_commerce_app.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ import java.io.IOException
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var productAdpter: ProductAdapter
+    private lateinit var context: Context
     private val productOnItemClick by lazy {
         object : ProductAdapter.ProductOnItemClick {
             override fun onItemClick(product: Product, position: Int) {

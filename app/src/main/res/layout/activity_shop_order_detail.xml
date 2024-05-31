@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.ShopOrderDetailActivity">
+
+    <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0392FF"
+            android:padding="10dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/back_Btn_Details"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Đơn hàng"
+                android:textColor="@color/white100"
+                android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/rl2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl1"
+            android:padding="10dp">
+
+        <ImageView
+                android:id="@+id/img1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_document" />
+
+        <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/img1"
+                android:text="Mã đơn hàng: "
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+        <TextView
+                android:id="@+id/txtOrder_IDs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/tv1"
+                android:text="Mã"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+        <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv1"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/img1"
+                android:text="Ngày đặt hàng: "
+                android:textColor="#3A3737"
+                android:textSize="18dp" />
+
+        <TextView
+                android:id="@+id/txtCreatedAts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtOrder_IDs"
+                android:layout_toEndOf="@+id/tv2"
+                android:text="Ngày giờ"
+                android:textColor="#3A3737"
+                android:textSize="18dp" />
+
+        <TextView
+                android:id="@+id/StatusDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv2"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/img1"
+                android:text="status"
+                android:textColor="#3A3737"
+                android:textSize="18dp" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="SAO CHÉP"
+                android:textColor="#0392FF"
+                android:textSize="20dp" />
+
+    </RelativeLayout>
+
+
+    <View
+            android:id="@+id/v2"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@+id/rl2"
+            android:background="@color/black" />
+
+    <RelativeLayout
+            android:id="@+id/rl4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v2"
+            android:padding="10dp">
+
+        <ImageView
+                android:id="@+id/img3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/baseline_location_pin_24" />
+
+        <TextView
+                android:id="@+id/tv6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/img3"
+                android:text="Địa chỉ người nhận"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+        <TextView
+                android:id="@+id/tv_name_buyer_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv6"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/img3"
+                android:text="Tên người nhận"
+                android:textColor="#3A3737"
+                android:textSize="18dp" />
+
+        <TextView
+                android:id="@+id/txtSDTDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name_buyer_orders"
+                android:layout_toEndOf="@+id/img3"
+                android:paddingStart="15dp"
+                android:text="Số điện thoại"
+                android:textColor="#3A3737"
+                android:textSize="18dp" />
+
+        <TextView
+                android:id="@+id/txtAddresss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtSDTDetails"
+                android:layout_toEndOf="@+id/img3"
+                android:paddingStart="15dp"
+                android:text="Địa chỉ"
+                android:textColor="#3A3737"
+                android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <View
+            android:id="@+id/v3"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@+id/rl4"
+            android:background="@color/black" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_product_order_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v3"
+            android:layout_marginTop="0dp"
+            android:padding="10dp" />
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rcv_product_order_details"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+        <TextView
+                android:id="@+id/edit_accept_product"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_white"
+                android:drawableStart="@drawable/baseline_check_circle_24"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="Nhận đơn"
+                android:textSize="12sp" />
+
+        <TextView
+                android:id="@+id/edit_deni_product"
+                android:padding="2dp"
+                android:gravity="center"
+                android:text="Hủy"
+                android:drawableStart="@drawable/baseline_restore_from_trash_24"
+                android:background="@drawable/btn_white"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_toEndOf="@+id/edit_accept_product"
+                android:layout_marginStart="10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
