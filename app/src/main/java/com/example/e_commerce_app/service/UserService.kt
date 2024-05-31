@@ -1,6 +1,8 @@
 package com.example.e_commerce_app.service
 
 import com.example.e_commerce_app.model.*
+import com.example.e_commerce_app.request.EmailRequest
+import com.example.e_commerce_app.request.RecoveryPasswordRequest
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -33,7 +35,7 @@ interface UserService {
     suspend fun getUserSearch(@Path("id") id: String): Response<ResponseData>
 
     @PUT("/api/v1/user/{id}")
-    suspend fun UpdateUser(@Path("id")id: String,@Body user: User) : Response<ResponseData>
+    suspend fun UpdateUser(@Path("id") id: String, @Body user: User): Response<ResponseData>
 
     // send otp to recovery password
     @POST("/api/v1/user/forgotpassword")

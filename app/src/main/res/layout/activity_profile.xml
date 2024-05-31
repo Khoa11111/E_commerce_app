@@ -6,22 +6,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.ProfileActivity"
-        tools:ignore="MissingDefaultResource">
+        tools:ignore="MissingDefaultResource"
+        >
+
     <ScrollView
             android:id="@+id/scrollViewProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".activity.main.ProfileFragment">
+            tools:context=".activity.main.ProfileFragment"
+            >
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:padding="20dp">
+                    android:padding="20dp"
+                    >
 
                 <androidx.cardview.widget.CardView
                         android:id="@+id/cvIMGProfile"
@@ -29,14 +34,16 @@
                         android:layout_height="92dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
-                        app:cardCornerRadius="200dp">
+                        app:cardCornerRadius="200dp"
+                        >
 
                     <ImageView
                             android:id="@+id/imgProfile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/baseline_person_24"/>
+                            android:src="@drawable/baseline_person_24"
+                            />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -48,10 +55,11 @@
                         android:layout_toRightOf="@+id/cvIMGProfile"
                         android:includeFontPadding="false"
                         android:text="UTE App"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        />
 
                 <TextView
-                        android:id="@+id/id_user"
+                        android:id="@+id/userEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/profile_fullname"
@@ -60,13 +68,15 @@
                         android:layout_toRightOf="@+id/cvIMGProfile"
                         android:includeFontPadding="false"
                         android:text="uteapp@gmail.com"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        />
 
                 <Button
                         android:id="@+id/btn_back_profile"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:background="@drawable/icon_back" />
+                        android:background="@drawable/icon_back"
+                        />
             </RelativeLayout>
 
             <LinearLayout
@@ -75,22 +85,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingHorizontal="20dp"
-                    android:paddingBottom="20dp">
+                    android:paddingBottom="20dp"
+                    >
+
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Contact Details"
                         />
+
                 <View
                         android:id="@+id/divider"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_margin="5dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="?android:attr/listDivider"
+                        />
 
                 <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="50dp">
+                        android:layout_height="50dp"
+                        >
 
                     <TextView
                             android:id="@+id/prEditProfile"
@@ -101,16 +116,19 @@
                             android:drawableStart="@drawable/baseline_person_24"
                             android:drawableEnd="@drawable/icon_next"
                             android:gravity="center_vertical"
-                            android:text="    Edit Profile"
+                            android:text="Edit Profile"
+                            android:drawablePadding="15dp"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            />
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="30dp"
+                        >
 
                     <TextView
                             android:id="@+id/prEmailAddress"
@@ -120,9 +138,11 @@
                             android:layout_marginRight="10dp"
                             android:drawableStart="@drawable/icon_email"
                             android:gravity="center_vertical"
-                            android:text="    Email Address"
+                            android:text="Email Address"
+                            android:drawablePadding="15dp"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            />
 
                 </androidx.cardview.widget.CardView>
 
@@ -130,7 +150,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        >
 
                     <TextView
                             android:layout_width="match_parent"
@@ -140,9 +161,11 @@
                             android:id="@+id/prPhoneNumber"
                             android:drawableStart="@drawable/icon_phone"
                             android:gravity="center_vertical"
-                            android:text="    Phone number"
+                            android:text="Phone number"
+                            android:drawablePadding="15dp"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            />
 
                 </androidx.cardview.widget.CardView>
 
@@ -150,7 +173,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        >
 
                     <TextView
                             android:id="@+id/prResidentialAddress"
@@ -160,9 +184,11 @@
                             android:layout_marginRight="10dp"
                             android:drawableStart="@drawable/icon_address"
                             android:gravity="center_vertical"
-                            android:text="    Residential Address"
+                            android:text="Residential Address"
+                            android:drawablePadding="15dp"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            />
 
                 </androidx.cardview.widget.CardView>
 
@@ -171,7 +197,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="30dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        >
 
                     <TextView
                             android:layout_width="match_parent"
@@ -181,9 +208,11 @@
                             android:drawableStart="@drawable/icon_logout"
                             android:drawableEnd="@drawable/icon_next"
                             android:gravity="center_vertical"
-                            android:text="    Sign out"
+                            android:text="Sign out"
+                            android:drawablePadding="15dp"
                             android:textSize="15dp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            />
 
                 </androidx.cardview.widget.CardView>
 
@@ -193,7 +222,8 @@
             <FrameLayout
                     android:id="@+id/frame_profile"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    />
         </LinearLayout>
 
     </ScrollView>

@@ -16,20 +16,21 @@ class ShopOwnActivity : AppCompatActivity() {
         binding = ActivityShopOwnBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.homeseller.setOnClickListener{
+        binding.homeseller.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
 
-        binding.Orderseller.setOnClickListener{
+        binding.Orderseller.setOnClickListener {
 
         }
 
-        binding.ShopProfile.setOnClickListener{
-
+        binding.ShopProfile.setOnClickListener {
+            val intent = Intent(this, ShopProfileActivity::class.java)
+            startActivity(intent)
         }
 
-        binding.Myproductseller.setOnClickListener{
+        binding.Myproductseller.setOnClickListener {
             val intent = Intent(applicationContext, ProductShopActivity::class.java)
             startActivity(intent)
         }
