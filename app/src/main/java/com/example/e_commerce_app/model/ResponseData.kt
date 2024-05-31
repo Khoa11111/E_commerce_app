@@ -9,5 +9,5 @@ data class ResponseData(
     val userData: User?,
     val registorSellerData: RegistorSellerData?,
     val emailUser: String?,
-    val variantData: variantData?,
+    val variantData: VariantData?
 )

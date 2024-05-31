@@ -86,24 +86,28 @@ class ProductShopActivity : AppCompatActivity() {
 
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {
-                        val listProduct = response.body()!!.productData!!.rows.map {
-                            val category = Category(
-                                it.category.id,
-                                it.category.category_name,
-                                it.category.category_image,
-                                it.category.createdAt,
-                                it.category.updatedAt
-                            )
-                            val shop = Shop(
-                                it.shop.id,
-                                it.shop.shop_name,
-                                it.shop.Image_shop,
-                                it.shop.Address,
-                                it.shop.id_user,
-                                it.shop.status,
-                                it.shop.createdAt,
-                                it.shop.createdAt
-                            )
+                        val listProduct = response.body()!!.productData!!.rows?.map {
+                            val category = it.category?.let { it1 ->
+                                Category(
+                                    it1.id,
+                                    it.category.category_name,
+                                    it.category.category_image,
+                                    it.category.createdAt,
+                                    it.category.updatedAt
+                                )
+                            }
+                            val shop = it.shop?.let { it1 ->
+                                Shop(
+                                    it1.id,
+                                    it.shop.shop_name,
+                                    it.shop.Image_shop,
+                                    it.shop.Address,
+                                    it.shop.id_user,
+                                    it.shop.status,
+                                    it.shop.createdAt,
+                                    it.shop.createdAt
+                                )
+                            }
                             Product(
                                 it.category_id,
                                 it.product_name,

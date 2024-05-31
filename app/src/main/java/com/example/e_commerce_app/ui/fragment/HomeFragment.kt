@@ -18,6 +18,8 @@ import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
 import com.example.e_commerce_app.model.User
+import com.example.e_commerce_app.ui.DetailPrActivity
+import com.example.e_commerce_app.ui.RGSellerOtpActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -29,11 +31,22 @@ import java.io.IOException
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var productAdpter: ProductAdapter
+    private lateinit var dataStoreManager: DataStoreManager
 
     private val productOnItemClick by lazy {
         object : ProductAdapter.ProductOnItemClick {
             override fun onItemClick(product: Product, position: Int) {
-                Toast.makeText(requireContext(), product.id.toString(), Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    Log.d("onItemClick", "onItemClick:${product} ")
+                    val product = Product(product.id,product.product_name,
+                        null.toString(),0,
+                        null.toString(),0,0,0,
+                        null.toString(),null,null, null.toString(), null.toString()
+                    )
+                    dataStoreManager.storeCurrentID(product)
+                    val intent = Intent(context, DetailPrActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
     }
@@ -46,6 +59,10 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setupProductRecycler()
+
+        dataStoreManager = DataStoreProvider.getInstance(requireContext())
+
+
 
 //        gotoFragmentSearch()
 
@@ -71,24 +88,28 @@ class HomeFragment : Fragment() {
                 Log.d("getProductHome", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {
-                        val listProduct = response.body()!!.productData!!.rows.map {
-                            val category = Category(
-                                it.category.id,
-                                it.category.category_name,
-                                it.category.category_image,
-                                it.category.createdAt,
-                                it.category.updatedAt
-                            )
-                            val shop = Shop(
-                                it.shop.id,
-                                it.shop.shop_name,
-                                it.shop.Image_shop,
-                                it.shop.Address,
-                                it.shop.id_user,
-                                it.shop.status,
-                                it.shop.createdAt,
-                                it.shop.createdAt
-                            )
+                        val listProduct = response.body()!!.productData!!.rows?.map {
+                            val category = it.category?.let { it1 ->
+                                Category(
+                                    it1.id,
+                                    it.category.category_name,
+                                    it.category.category_image,
+                                    it.category.createdAt,
+                                    it.category.updatedAt
+                                )
+                            }
+                            val shop = it.shop?.let { it1 ->
+                                Shop(
+                                    it1.id,
+                                    it.shop.shop_name,
+                                    it.shop.Image_shop,
+                                    it.shop.Address,
+                                    it.shop.id_user,
+                                    it.shop.status,
+                                    it.shop.createdAt,
+                                    it.shop.createdAt
+                                )
+                            }
                             Product(
                                 it.id,
                                 it.product_name,

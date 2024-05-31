@@ -10,8 +10,8 @@ data class Product(
     val product_review: Int,
     val product_price: Int,
     val product_image: String,
-    val shop: Shop,
-    val category: Category,
+    val shop: Shop?,
+    val category: Category?,
     val createdAt: String,
     val updatedAt: String
 )

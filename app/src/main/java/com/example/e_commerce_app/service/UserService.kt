@@ -10,15 +10,6 @@ interface UserService {
     @POST("/api/v1/user/register")
     suspend fun register(@Body user: User): Response<ResponseData>
 
-    @POST("/api/v1/registorseller")
-    suspend fun RegisterSell(@Body shop: Shop): Response<ResponseData>
-
-    @GET("/api/v1/cartlist/getcart/{uid}")
-    suspend fun getCartList(@Path("uid") UserId: String): Response<ResponseData>
-
-    @PUT("/api/v1/cartlist/updatequantitycart/{uid}")
-    suspend fun updateCartList(@Body cart: Cart): Response<ResponseData>
-
     @PUT("/api/v1/user/finalregister/{otp}")
     suspend fun confirmOTP(@Path("otp") otp: String): Response<ResponseData>
 
