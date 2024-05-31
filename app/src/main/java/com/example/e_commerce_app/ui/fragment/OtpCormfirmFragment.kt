@@ -11,6 +11,7 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentOtpCormfirmBinding
@@ -50,7 +51,7 @@ class OtpCormfirmFragment : Fragment(), OnClickListener {
     }
 
     // Move to next Otp number when enter text
-    private fun moveToNextOTPNumber(){
+    private fun moveToNextOTPNumber() {
         binding.num1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -180,7 +181,7 @@ class OtpCormfirmFragment : Fragment(), OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v) {
+        when (v) {
             binding.back -> v.findNavController().navigate(R.id.action_otpCormfirmFragment_to_signupFragment)
             binding.btnOTPVerify -> ConfirmOTP(v)
         }
@@ -189,15 +190,16 @@ class OtpCormfirmFragment : Fragment(), OnClickListener {
     // get OTP from UI
     private fun getOTP(): String {
         binding.apply {
-            val otp = num1.text.toString() + num2.text.toString() + num3.text.toString() + num4.text.toString() + num5.text.toString() + num6.text.toString()
+            val otp =
+                num1.text.toString() + num2.text.toString() + num3.text.toString() + num4.text.toString() + num5.text.toString() + num6.text.toString()
             return otp
         }
     }
 
     // Check if otp is correct
-    private fun ConfirmOTP(view :View) {
+    private fun ConfirmOTP(view: View) {
         val otp = getOTP()
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             val response = try {
                 RetrofitInstance.UserApi.confirmOTP(otp)
             } catch (e: HttpException) {
@@ -211,7 +213,8 @@ class OtpCormfirmFragment : Fragment(), OnClickListener {
             if (response.isSuccessful && response.body() != null) {
                 withContext(Dispatchers.Main) {
                     if (response.body()!!.err.toString() == "1") {
-                        Toast.makeText(requireContext(), "Your otp is incorrect. Please try again!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Your otp is incorrect. Please try again!", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
                         view.findNavController().navigate(R.id.action_otpCormfirmFragment_to_loginFragment)
                     }

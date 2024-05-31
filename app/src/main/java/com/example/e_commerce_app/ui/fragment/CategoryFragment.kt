@@ -66,11 +66,11 @@ class CategoryFragment : Fragment() {
                         }
                     }
                 }
-            }catch (e: HttpException){
-                Toast.makeText(requireActivity(),"http error ${e.message}", Toast.LENGTH_LONG).show()
+            } catch (e: HttpException) {
+                Toast.makeText(requireActivity(), "http error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
-            }catch (e: IOException){
-                Toast.makeText(requireActivity(),"app error ${e.message}", Toast.LENGTH_LONG).show()
+            } catch (e: IOException) {
+                Toast.makeText(requireActivity(), "app error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             }
         }
