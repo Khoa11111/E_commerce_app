@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProductService {
 
@@ -24,6 +25,6 @@ interface ProductService {
     @POST("/api/v1/product/variant/{id}")
     suspend fun CreateVariant(@Body variantData: variantData): Response<ResponseData>
 
-    @GET("/api/v1/product?id_shop={id}")
-    suspend fun GetProduct_ID(@Path("id")id: String):Response<ResponseData>
+    @GET("/api/v1/product")
+    suspend fun GetProduct_ID(@Query("id")id: String?):Response<ResponseData>
 }

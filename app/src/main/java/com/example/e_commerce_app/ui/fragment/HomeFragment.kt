@@ -65,10 +65,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun getListProduct(productAdapter: ProductAdapter) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitInstance.ProductApi.getAllProduct()
-
+                Log.d("getProductHome", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {
                         val listProduct = response.body()!!.productData!!.rows.map {

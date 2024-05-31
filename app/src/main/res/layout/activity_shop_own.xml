@@ -20,6 +20,7 @@
             android:layout_margin="5dp"
             android:background="?android:attr/listDivider" />
     <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -37,6 +38,7 @@
                 android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -54,6 +56,7 @@
                 android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -67,6 +70,25 @@
                 android:drawableEnd="@drawable/icon_next"
                 android:gravity="center_vertical"
                 android:text="    Orders"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+        <TextView
+                android:id="@+id/ShopProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:drawableStart="@drawable/baseline_person_24"
+                android:drawableEnd="@drawable/icon_next"
+                android:gravity="center_vertical"
+                android:text="    Profile Shop"
                 android:textSize="15dp"
                 android:textStyle="bold" />
     </androidx.cardview.widget.CardView>

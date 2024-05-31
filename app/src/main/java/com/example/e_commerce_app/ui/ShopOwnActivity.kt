@@ -1,5 +1,6 @@
 package com.example.e_commerce_app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_commerce_app.R
@@ -23,8 +24,13 @@ class ShopOwnActivity : AppCompatActivity() {
 
         }
 
-        binding.Myproductseller.setOnClickListener{
+        binding.ShopProfile.setOnClickListener{
 
+        }
+
+        binding.Myproductseller.setOnClickListener{
+            val intent = Intent(applicationContext, ProductShopActivity::class.java)
+            startActivity(intent)
         }
 
     }

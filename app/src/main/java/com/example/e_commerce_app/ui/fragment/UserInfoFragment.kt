@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentUserInfoBinding
 import com.example.e_commerce_app.model.User
+import com.example.e_commerce_app.ui.ProfileActivity
 import com.example.e_commerce_app.ui.RGSellerOtpActivity
 import com.example.e_commerce_app.ui.RegisterSellerActivity
 import com.example.e_commerce_app.ui.ShopOwnActivity
@@ -35,16 +37,17 @@ class UserInfoFragment : Fragment(){
         binding = FragmentUserInfoBinding.inflate(inflater, container, false)
 
         binding.cvStore.setOnClickListener{
-            getUser("5")
+            getUser("2")
         }
 //
 //        binding.frprMyOrder.setOnClickListener{
 //
 //        }
 //
-//        binding.frprProfile.setOnClickListener{
-//
-//        }
+        binding.frprProfile.setOnClickListener{
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         return binding.root
     }
@@ -58,7 +61,7 @@ class UserInfoFragment : Fragment(){
 //    }
 
     fun getUser(id:String){
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             val response = try {
                 RetrofitInstance.UserApi.getUserSearch(id)
             }catch (e: HttpException) {
@@ -71,7 +74,7 @@ class UserInfoFragment : Fragment(){
             Log.d("checkuserssssss", "getUser: ${response}")
             if (response.isSuccessful && response.body() != null) {
                 withContext(Dispatchers.Main) {
-//                    Log.d("userssssss", "getUser: "+response.body()!!.userDataSearch?.rows!![0].role)
+                    Log.d("userssssss", "getUser: "+response.body()!!.userData?.role+"get")
 
                 if (response.body()!!.userData?.role =="3"){
                     val intent = Intent(requireContext(), RegisterSellerActivity::class.java)

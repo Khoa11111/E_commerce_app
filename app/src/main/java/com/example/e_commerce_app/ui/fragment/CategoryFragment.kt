@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.CategoryAdapter
 import com.example.e_commerce_app.databinding.FragmentCategoryBinding
@@ -45,7 +46,7 @@ class CategoryFragment : Fragment() {
     }
 
     private fun getListCategory(categoryAdapter: CategoryAdapter) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitInstance.CategoryApi.getAllCategory()
 

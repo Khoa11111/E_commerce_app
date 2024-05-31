@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.e_commerce_app.databinding.ActivityRegisterSellerBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
@@ -49,7 +50,8 @@ class RegisterSellerActivity : AppCompatActivity() {
             imageContract.launch("image/*")
         }
         binding.btnSignupSeller.setOnClickListener {
-            registerSellerRun()
+            registerSellerRun(this)
+//            Toast.makeText(this@RegisterSellerActivity,"registerSellerRun ",Toast.LENGTH_LONG).show()
         }
         binding.BtnBack.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -57,25 +59,32 @@ class RegisterSellerActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerSellerRun() {
-        lifecycleScope.launch {
-            var email: String? = null
-            var id: Int? = null
-            dataStoreManager.idCurrenUserFlow.collect {
-                id = it
-            }
-            dataStoreManager.emailCurrentUserFlow.collect{
-                email = it
-            }
-            registerSeller(
-                binding.edtShopName.text.toString(),
-                binding.edtAddressSeller.text.toString(),
-                id!!,
-                email!!,
-                binding.edtReasonSeller.text.toString(),
-                base64String
-            )
-        }
+    private fun registerSellerRun(context: Context) {
+        var email: String? = null
+        var id: Int? = null
+
+        dataStoreManager.idCurrenUserFlow.asLiveData().observe(this,{
+            id=it
+        })
+        Toast.makeText(this@RegisterSellerActivity,"registerSellerRun${id} ",Toast.LENGTH_LONG).show()
+
+//        lifecycleScope.launch {
+//
+////            dataStoreManager.idCurrenUserFlow.collect{
+////                id
+////            }
+////            dataStoreManager.emailCurrentUserFlow.collect{
+////                email
+////            }
+////            registerSeller(
+////                binding.edtShopName.text.toString(),
+////                binding.edtAddressSeller.text.toString(),
+////                id!!,
+////                email!!,
+////                binding.edtReasonSeller.text.toString(),
+////                base64String
+////            )
+//        }
     }
 
 
@@ -90,6 +99,14 @@ class RegisterSellerActivity : AppCompatActivity() {
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             val response = try {
+                var email: String? = null
+                var id: Int? = null
+                dataStoreManager.idCurrenUserFlow.collect{
+                    id
+                }
+                dataStoreManager.emailCurrentUserFlow.collect{
+                    email
+                }
                 val registorSellerData = RegistorSellerData(
                     null,
                     shop_name,
