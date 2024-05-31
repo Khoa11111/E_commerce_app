@@ -166,6 +166,7 @@
                                 app:cardCornerRadius="5dp">
 
                             <ImageView
+                                    android:id="@+id/remove1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:src="@drawable/icon_neg" />
@@ -189,6 +190,7 @@
                                 app:cardCornerRadius="5dp">
 
                             <ImageView
+                                    android:id="@+id/add1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:src="@drawable/baseline_exposure_plus_1_24" />
@@ -209,6 +211,7 @@
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent" android:layout_height="match_parent">
                                 <ImageView
+                                        android:id="@+id/variantImg"
                                         android:layout_margin="10dp"
                                         android:layout_width="100dp"
                                         android:layout_weight="1"
@@ -227,6 +230,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="0dp"/>
                                     <TextView
+                                            android:id="@+id/NameVariant"
                                             android:gravity="center"
                                             android:textColor="#000000"
                                             android:textStyle="bold"
@@ -235,16 +239,17 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="0dp"/>
                                 </LinearLayout>
-                                <TextView
-                                        android:gravity="center"
-                                        android:textAlignment="center"
-                                        android:text="Chọn"
-                                        android:textColor="#03A9F4"
-                                        android:textStyle="bold"
-                                        android:textSize="24dp"
-                                        android:layout_weight="1"
-                                        android:layout_width="100dp"
-                                        android:layout_height="match_parent"/>
+<!--                                <TextView-->
+<!--                                        android:id="@+id/ChooseVariant"-->
+<!--                                        android:gravity="center"-->
+<!--                                        android:textAlignment="center"-->
+<!--                                        android:text="Chọn"-->
+<!--                                        android:textColor="#03A9F4"-->
+<!--                                        android:textStyle="bold"-->
+<!--                                        android:textSize="24dp"-->
+<!--                                        android:layout_weight="1"-->
+<!--                                        android:layout_width="100dp"-->
+<!--                                        android:layout_height="match_parent"/>-->
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
@@ -279,7 +284,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="60dp"
                                             android:layout_weight="3"
-                                            android:src="@drawable/aklogo"></ImageView>
+                                            android:src="@drawable/aklogo"/>
 
                                     <LinearLayout
                                             android:layout_width="match_parent"
