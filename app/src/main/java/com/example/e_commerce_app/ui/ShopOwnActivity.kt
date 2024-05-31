@@ -17,7 +17,8 @@ class ShopOwnActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.homeseller.setOnClickListener{
-
+            val intent = Intent(applicationContext, HomeActivity::class.java)
+            startActivity(intent)
         }
 
         binding.Orderseller.setOnClickListener{

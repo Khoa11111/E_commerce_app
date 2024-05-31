@@ -33,6 +33,6 @@ interface UserService {
     suspend fun getUserSearch(@Path("id") id: String): Response<ResponseData>
 
     @PUT("/api/v1/user/{id}")
-    suspend fun GetUser(@Path("id")id:String) : Response<ResponseData>
+    suspend fun UpdateUser(@Path("id")id: String,@Body user: User) : Response<ResponseData>
 
 }

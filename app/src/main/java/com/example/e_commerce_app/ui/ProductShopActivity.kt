@@ -14,6 +14,8 @@ import com.example.e_commerce_app.Adapter.CategoryAdapterSpinner
 import com.example.e_commerce_app.Adapter.ProductShopAdapter
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityProductShopBinding
+import com.example.e_commerce_app.datastore.DataStoreManager
+import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
@@ -27,6 +29,7 @@ import java.io.IOException
 class ProductShopActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductShopBinding
     private lateinit var productShopAdapter: ProductShopAdapter
+    private lateinit var dataStoreManager: DataStoreManager
 //    private val listCategory =
     private val productOnItemClick by lazy {
         object : ProductShopAdapter.ProductOnItemClick {
@@ -41,6 +44,8 @@ class ProductShopActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupProductRecyclerShop()
+
+        dataStoreManager = DataStoreProvider.getInstance(this)
 
         binding.Addproduct.setOnClickListener{
 
@@ -65,7 +70,11 @@ class ProductShopActivity : AppCompatActivity() {
 
     private fun setupProductRecyclerShop() {
         productShopAdapter = ProductShopAdapter(productOnItemClick)
-        getProductShop(productShopAdapter,"3")
+        lifecycleScope.launch(Dispatchers.IO) {
+            dataStoreManager.getCurrentUser().collect{
+                getProductShop(productShopAdapter,it.id.toString())
+            }
+        }
     }
 
     fun getProductShop(productShopAdapter: ProductShopAdapter, id: String) {
