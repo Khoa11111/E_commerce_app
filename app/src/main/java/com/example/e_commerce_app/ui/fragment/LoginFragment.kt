@@ -1,6 +1,7 @@
 package com.example.e_commerce_app.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,14 @@ import com.example.e_commerce_app.databinding.FragmentLoginBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
 import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.User
+import com.example.e_commerce_app.ui.LoginSignupActivity
 import com.example.e_commerce_app.util.RetrofitInstance
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class LoginFragment : Fragment(), OnClickListener {
 

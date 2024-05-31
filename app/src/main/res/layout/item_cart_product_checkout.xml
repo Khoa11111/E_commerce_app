@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/Product_checkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+        <ImageView
+                android:id="@+id/imgCartt_order"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/baseline_person_24" />
+
+        <RelativeLayout
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp">
+
+            <TextView
+                    android:id="@+id/nameCartt_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Tênn"
+                    android:textSize="14dp"
+                    tools:ignore="TextSizeCheck" />
+
+            <TextView
+                    android:id="@+id/SLCartt_order"
+                    android:layout_below="@+id/nameCartt_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="SL"
+                    android:textSize="12dp"
+                    tools:ignore="TextSizeCheck" />
+            <TextView
+                    android:id="@+id/Price_Product"
+                    android:layout_below="@+id/nameCartt_order"
+                    android:layout_alignParentEnd="true"
+                    android:text="134.000 đ"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

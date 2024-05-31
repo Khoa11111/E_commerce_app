@@ -1,5 +1,8 @@
 package com.example.e_commerce_app.Adapter
 
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
@@ -8,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ProductItemHomeBinding
 import com.example.e_commerce_app.model.Product
+import com.example.e_commerce_app.ui.DetailPrActivity
+import com.example.e_commerce_app.ui.RegisterSellerActivity
 import com.example.e_commerce_app.util.Utils
 
 class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(DiffUtil()) {
@@ -15,7 +20,12 @@ class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, Pro
     class ProductViewHolder(val binding: ProductItemHomeBinding, val onclick: ProductOnItemClick) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Product) {
             binding.apply {
-                IMGPR.setImageBitmap(Utils.decodeBase64ToBitmap(item.product_image))
+//                Log.d("checkImage", "bind: ${item.toString()}")
+
+                val StringSplit= item.product_image.toString()
+                val prefix = Utils.extractPrefix(StringSplit)
+//                Log.d("prefix", "bind: "+item.product_image.toString())
+                IMGPR.setImageBitmap(Utils.decodeBase64ToBitmap(prefix))
                 TxtProductName.text = item.product_name
                 txtProductPrice.text = item.product_price.toString()
                 root.setOnClickListener {
@@ -46,6 +56,10 @@ class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, Pro
     }
 
     interface ProductOnItemClick {
-        fun onItemClick(product: Product, position: Int)
+        fun onItemClick(product: Product, position: Int){
+//            val intent = Intent(context, DetailPrActivity::class.java)
+//            intent.putExtra("product", product)
+//            context.startActivity(intent)
+        }
     }
 }

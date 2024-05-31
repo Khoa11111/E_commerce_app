@@ -17,6 +17,7 @@ import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
+import com.example.e_commerce_app.model.User
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -44,7 +45,6 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        dataStoreManager = DataStoreProvider.getInstance(requireContext())
 
         setupProductRecycler()
 
@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
                                 it.shop.id_user,
                                 it.shop.status,
                                 it.shop.createdAt,
-                                it.shop.updatedAt
+                                it.shop.createdAt
                             )
                             Product(
                                 it.category_id,
