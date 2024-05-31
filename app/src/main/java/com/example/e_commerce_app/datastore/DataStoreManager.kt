@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.e_commerce_app.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -17,29 +18,29 @@ class DataStoreManager(context: Context) {
     companion object {
         val idCurrentUser = intPreferencesKey("ID_CURRENT_USER")
         val emailCurrentUser = stringPreferencesKey("EMAIL_CURRENT_USER")
+        val roleCurrentUser = stringPreferencesKey("ROLE_CURRENT_USER")
     }
 
-    // store id of current user
-    suspend fun storeIdCurrenUser(value: Int) {
+    // store user's attributes needed
+    suspend fun storeCurrenUser(user: User) {
         mDataStore.edit { pref ->
-            pref[idCurrentUser] = value
+            pref[idCurrentUser] = user.id!!
+            pref[emailCurrentUser] = user.email
+            pref[roleCurrentUser] = user.role!!
         }
     }
 
-    // get id of current user
-    val idCurrenUserFlow: Flow<Int> = mDataStore.data.map { pref ->
-        pref[idCurrentUser] ?: 0
-    }
-
-    // store email of current user
-    suspend fun storeEmailCurrentUser(value: String) {
-        mDataStore.edit { pref ->
-            pref[emailCurrentUser] = value
-        }
-    }
-
-    // get email of current user
-    val emailCurrentUserFlow: Flow<String> = mDataStore.data.map { pref ->
-        pref[emailCurrentUser] ?: ""
+    suspend fun getCurrentUser() = mDataStore.data.map { pref ->
+        User(
+            pref[idCurrentUser],
+            null,
+            null,
+            pref[emailCurrentUser] ?: "",
+            null,
+            null,
+            null,
+            null,
+            pref[roleCurrentUser]
+        )
     }
 }

@@ -40,6 +40,7 @@ class LoginFragment : Fragment(), OnClickListener {
         // Onclick event here
         binding.goToSignup.setOnClickListener(this)
         binding.btnSignin.setOnClickListener(this)
+        binding.chagePassword.setOnClickListener(this)
 
         return binding.root
     }
@@ -48,6 +49,7 @@ class LoginFragment : Fragment(), OnClickListener {
         when (v) {
             binding.goToSignup -> v.findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
             binding.btnSignin -> login(v)
+            binding.chagePassword -> v.findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
     }
 
@@ -73,9 +75,11 @@ class LoginFragment : Fragment(), OnClickListener {
                 }
                 val id = response.body()!!.userData!!.id
                 val email = response.body()!!.userData!!.email
-                if (id != null) {
-                    dataStoreManager.storeIdCurrenUser(id)
-                    dataStoreManager.storeEmailCurrentUser(email)
+                val role = response.body()!!.userData!!.role
+                if (id != null && role != null) {
+                    dataStoreManager.storeCurrenUser(
+                        User(id, null, null, email, null, null, null, null, role)
+                    )
                 }
                 view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
             } else {

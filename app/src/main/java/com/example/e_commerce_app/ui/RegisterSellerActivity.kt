@@ -52,32 +52,25 @@ class RegisterSellerActivity : AppCompatActivity() {
             registerSellerRun()
         }
         binding.BtnBack.setOnClickListener {
-            val intent = Intent(applicationContext, HomeActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun registerSellerRun() {
-        lifecycleScope.launch {
-            var email: String? = null
-            var id: Int? = null
-            dataStoreManager.idCurrenUserFlow.collect {
-                id = it
+        lifecycleScope.launch(Dispatchers.IO) {
+            dataStoreManager.getCurrentUser().collect {
+                registerSeller(
+                    binding.edtShopName.text.toString(),
+                    binding.edtAddressSeller.text.toString(),
+                    it.id!!,
+                    it.email,
+                    binding.edtReasonSeller.text.toString(),
+                    base64String
+                )
             }
-            dataStoreManager.emailCurrentUserFlow.collect{
-                email = it
-            }
-            registerSeller(
-                binding.edtShopName.text.toString(),
-                binding.edtAddressSeller.text.toString(),
-                id!!,
-                email!!,
-                binding.edtReasonSeller.text.toString(),
-                base64String
-            )
         }
     }
-
 
 
     private fun registerSeller(
