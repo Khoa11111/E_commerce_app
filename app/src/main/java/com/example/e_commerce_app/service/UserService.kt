@@ -8,20 +8,11 @@ interface UserService {
     @POST("/api/v1/user/register")
     suspend fun register(@Body user: User): Response<ResponseData>
 
-    @GET("/api/v1/product")
-    suspend fun getAllProduct(): Response<ResponseData>
-
-    @GET("/api/v1/product/variant/{id}")
-    suspend fun getvariant(@Path("id") ProductId:String):Response<ResponseData>
-
-    @GET("/api/v1/category")
-    suspend fun getCategories(): Response<ResponseData>
-
     @POST("/api/v1/registorseller")
     suspend fun RegisterSell(@Body shop: Shop): Response<ResponseData>
 
     @GET("/api/v1/cartlist/getcart/{uid}")
-    suspend fun getCartList(@Path("uid") UserId:String): Response<ResponseData>
+    suspend fun getCartList(@Path("uid") UserId: String): Response<ResponseData>
 
     @PUT("/api/v1/cartlist/updatequantitycart/{uid}")
     suspend fun updateCartList(@Body cart: Cart): Response<ResponseData>
@@ -36,9 +27,9 @@ interface UserService {
     suspend fun RegSeller(@Body registorSellerData: RegistorSellerData): Response<ResponseData>
 
     @PUT("/api/v1/registorseller/finalRegistorSeller/{otp}")
-    suspend fun confirmOTPSeller(@Path("otp") otp:String): Response<ResponseData>
+    suspend fun confirmOTPSeller(@Path("otp") otp: String): Response<ResponseData>
 
     @GET("/api/v1/user/current/{id}")
-    suspend fun getUserSearch(@Path("id") id:String): Response<ResponseData>
+    suspend fun getUserSearch(@Path("id") id: String): Response<ResponseData>
 
 }

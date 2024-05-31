@@ -29,7 +29,6 @@ import java.io.IOException
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var productAdpter: ProductAdapter
-    private lateinit var dataStoreManager: DataStoreManager
 
     private val productOnItemClick by lazy {
         object : ProductAdapter.ProductOnItemClick {
@@ -49,8 +48,6 @@ class HomeFragment : Fragment() {
         setupProductRecycler()
 
 //        gotoFragmentSearch()
-
-        getIdUserFromDataStore()
 
         return binding.root
     }
@@ -128,13 +125,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-    private fun getIdUserFromDataStore() {
-        lifecycleScope.launch {
-            dataStoreManager.idFlow.collect { value ->
-                Log.d("HomeFragment", "User id: ${value}")
-            }
-        }
-    }
-
 }

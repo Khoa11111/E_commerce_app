@@ -72,8 +72,10 @@ class LoginFragment : Fragment(), OnClickListener {
                     return@launch
                 }
                 val id = response.body()!!.userData!!.id
+                val email = response.body()!!.userData!!.email
                 if (id != null) {
-                    dataStoreManager.storeId(id)
+                    dataStoreManager.storeIdCurrenUser(id)
+                    dataStoreManager.storeEmailCurrentUser(email)
                 }
                 view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
             } else {

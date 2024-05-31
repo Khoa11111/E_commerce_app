@@ -10,19 +10,22 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import com.example.e_commerce_app.databinding.ActivityRegisterSellerBinding
+import com.example.e_commerce_app.datastore.DataStoreManager
+import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.RegistorSellerData
 import com.example.e_commerce_app.util.RetrofitInstance
 import com.example.e_commerce_app.util.Utils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.shareIn
 import retrofit2.HttpException
 import java.io.IOException
 
 class RegisterSellerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterSellerBinding
+    private lateinit var dataStoreManager: DataStoreManager
     private var uri: Uri? = null
     private var base64String: String = ""
 
@@ -40,18 +43,13 @@ class RegisterSellerActivity : AppCompatActivity() {
         binding = ActivityRegisterSellerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        dataStoreManager = DataStoreProvider.getInstance(this)
+
         binding.imgvImgSeller.setOnClickListener {
             imageContract.launch("image/*")
         }
         binding.btnSignupSeller.setOnClickListener {
-            registerSeller(
-                binding.edtShopName.text.toString(),
-                binding.edtAddressSeller.text.toString(),
-                2,
-                "vanphattk159@gmail.com",
-                binding.edtReasonSeller.text.toString(),
-                base64String
-            )
+            registerSellerRun()
         }
         binding.BtnBack.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
@@ -59,8 +57,30 @@ class RegisterSellerActivity : AppCompatActivity() {
         }
     }
 
+    private fun registerSellerRun() {
+        lifecycleScope.launch {
+            var email: String? = null
+            var id: Int? = null
+            dataStoreManager.idCurrenUserFlow.collect {
+                id = it
+            }
+            dataStoreManager.emailCurrentUserFlow.collect{
+                email = it
+            }
+            registerSeller(
+                binding.edtShopName.text.toString(),
+                binding.edtAddressSeller.text.toString(),
+                id!!,
+                email!!,
+                binding.edtReasonSeller.text.toString(),
+                base64String
+            )
+        }
+    }
 
-    fun registerSeller(
+
+
+    private fun registerSeller(
         shop_name: String,
         Address: String,
         id_user: Int,
@@ -68,7 +88,7 @@ class RegisterSellerActivity : AppCompatActivity() {
         reason: String,
         image_shop: String
     ) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             val response = try {
                 val registorSellerData = RegistorSellerData(
                     null,
@@ -93,23 +113,24 @@ class RegisterSellerActivity : AppCompatActivity() {
 
             if (response.isSuccessful && response.body() != null) {
                 if (response.body()!!.err.toString() == "1") {
-                    val alertDialog = AlertDialog.Builder(this@RegisterSellerActivity)
-                        .setTitle("Register Fail!")
-                        .setMessage(
-                            "\n" +
-                                    "You have already registered, please wait for approval from admin"
-                        )
-                        .setPositiveButton("OK") { dialog, which ->
-                            // Handle positive button click
-                            dialog.dismiss()
-                        }
+                    withContext(Dispatchers.Main) {
+                        val alertDialog = AlertDialog.Builder(this@RegisterSellerActivity)
+                            .setTitle("Register Fail!")
+                            .setMessage(
+                                "\n" +
+                                        "You have already registered, please wait for approval from admin"
+                            )
+                            .setPositiveButton("OK") { dialog, which ->
+                                // Handle positive button click
+                                dialog.dismiss()
+                            }
 //                            .setNegativeButton("Cancel") { dialog, which ->
 //                                // Handle negative button click
 //                                dialog.dismiss()
 //                            }
-                        .create()
-
-                    alertDialog.show()
+                            .create()
+                        alertDialog.show()
+                    }
                 } else {
                     withContext(Dispatchers.Main) {
                         val intent = Intent(applicationContext, RGSellerOtpActivity::class.java)

@@ -10,14 +10,14 @@ import android.util.Log
 import java.io.ByteArrayOutputStream
 
 object Utils {
-    val USER_BASE_URL = "https://8223-14-165-200-6.ngrok-free.app/"
+    val USER_BASE_URL = "https://696a-14-165-200-6.ngrok-free.app/"
 
     fun encodeUriToBase64(uri: Uri?, context: Context): String {
         val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         val bytes = stream.toByteArray()
-        val encodedBase64 = "data:image/jpeg;base64,"+Base64.encodeToString(bytes, Base64.DEFAULT)
+        val encodedBase64 = "data:image/jpeg;base64," + Base64.encodeToString(bytes, Base64.DEFAULT)
         return encodedBase64
     }
 
@@ -25,8 +25,7 @@ object Utils {
         val indexOfComma = dataString.indexOf(",")
         if (indexOfComma != -1) {
             return dataString.substring(indexOfComma + 1)
-        }
-        else {
+        } else {
             return dataString
         }
     }
