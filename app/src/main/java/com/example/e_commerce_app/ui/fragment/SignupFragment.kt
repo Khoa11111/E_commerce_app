@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentSignupBinding
@@ -63,8 +64,29 @@ class SignupFragment : Fragment(), OnClickListener {
             }
 
             if (response.isSuccessful && response.body() != null) {
-                withContext(Dispatchers.Main) {
-                    view.findNavController().navigate(R.id.action_signupFragment_to_otpCormfirmFragment)
+                if (response.body()!!.err.toString() == "1") {
+                    withContext(Dispatchers.Main) {
+                        val alertDialog = AlertDialog.Builder(requireContext())
+                            .setTitle("Register Fail!")
+                            .setMessage(
+                                "\n" +
+                                        "You have already registered this email, please use other email!!!"
+                            )
+                            .setPositiveButton("OK") { dialog, which ->
+                                // Handle positive button click
+                                dialog.dismiss()
+                            }
+//                            .setNegativeButton("Cancel") { dialog, which ->
+//                                // Handle negative button click
+//                                dialog.dismiss()
+//                            }
+                            .create()
+                        alertDialog.show()
+                    }
+                }else{
+                    withContext(Dispatchers.Main) {
+                        view.findNavController().navigate(R.id.action_signupFragment_to_otpCormfirmFragment)
+                    }
                 }
             }
         }
