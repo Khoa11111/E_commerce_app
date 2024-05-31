@@ -7,13 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
 import com.example.e_commerce_app.databinding.FragmentHomeBinding
+import com.example.e_commerce_app.datastore.DataStoreManager
+import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
-import com.example.e_commerce_app.model.User
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -25,6 +28,8 @@ import java.io.IOException
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var productAdpter: ProductAdapter
+    private lateinit var dataStoreManager: DataStoreManager
+
     private val productOnItemClick by lazy {
         object : ProductAdapter.ProductOnItemClick {
             override fun onItemClick(product: Product, position: Int) {
@@ -39,13 +44,23 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        dataStoreManager = DataStoreProvider.getInstance(requireContext())
 
         setupProductRecycler()
-        val currentUser = arguments?.getParcelable<User>("currentUser")
-        Log.d("checking", currentUser.toString())
+
+//        gotoFragmentSearch()
+
+        getIdUserFromDataStore()
 
         return binding.root
     }
+
+//    private fun gotoFragmentSearch() {
+//        binding.search.setOnClickListener {
+//            val action = HomeFragmentDirections.actionHomeFragmentToRGSellerOtpActivity()
+//            findNavController().navigate(action)
+//        }
+//    }
 
     private fun setupProductRecycler() {
         productAdpter = ProductAdapter(productOnItemClick)
@@ -110,6 +125,14 @@ class HomeFragment : Fragment() {
             } catch (e: IOException) {
                 Toast.makeText(requireActivity(), "app error ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
+            }
+        }
+    }
+
+    private fun getIdUserFromDataStore() {
+        lifecycleScope.launch {
+            dataStoreManager.idFlow.collect { value ->
+                Log.d("HomeFragment", "User id: ${value}")
             }
         }
     }

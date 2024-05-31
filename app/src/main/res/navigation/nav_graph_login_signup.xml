@@ -49,10 +49,6 @@
             android:id="@+id/homeActivity"
             android:name="com.example.e_commerce_app.ui.HomeActivity"
             android:label="activity_home"
-            tools:layout="@layout/activity_home">
-        <argument
-                android:name="currentUser"
-                app:argType="com.example.e_commerce_app.model.User"/>
-    </activity>
+            tools:layout="@layout/activity_home"/>
 
 </navigation>

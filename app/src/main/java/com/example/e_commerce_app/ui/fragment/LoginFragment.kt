@@ -1,37 +1,34 @@
 package com.example.e_commerce_app.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavDirections
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentLoginBinding
+import com.example.e_commerce_app.datastore.DataStoreManager
+import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.User
-import com.example.e_commerce_app.ui.LoginSignupActivity
 import com.example.e_commerce_app.util.RetrofitInstance
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.io.IOException
 
 class LoginFragment : Fragment(), OnClickListener {
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var dataStoreManager: DataStoreManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        dataStoreManager = DataStoreProvider.getInstance(requireContext())
 
         // Onclick event here
         binding.goToSignup.setOnClickListener(this)
@@ -48,50 +45,33 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
     private fun login(view: View) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val response = try {
-                val user = User(
-                    null,
-                    null,
-                    binding.inputPassWord.text.toString(),
-                    binding.inputEmailAddress.text.toString(),
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                )
-                RetrofitInstance.UserApi.login(user)
-            } catch (e: HttpException) {
-                Toast.makeText(requireContext(), "http error: ${e.message}", Toast.LENGTH_LONG).show()
-                return@launch
-            } catch (e: IOException) {
-                Toast.makeText(requireContext(), "app error: ${e.message}", Toast.LENGTH_LONG).show()
-                return@launch
-            }
+        val user = User(
+            null,
+            null,
+            binding.inputPassWord.text.toString(),
+            binding.inputEmailAddress.text.toString(),
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+        lifecycleScope.launch {
+            val response = RetrofitInstance.UserApi.login(user)
 
             if (response.isSuccessful && response.body() != null) {
-                withContext(Dispatchers.Main) {
-                    if (response.body()!!.err.toString() == "1") {
-                        Toast.makeText(requireContext(), "Login fail, Please try again!", Toast.LENGTH_SHORT).show()
-                    } else {
-//                        DataLocalManager.setIdUser()
-                        val userdata = response.body()!!.userData!!
-                        val user = User(
-                            userdata.id,
-                            userdata.Name,
-                            null,
-                            userdata.email,
-                            userdata.SDT,
-                            userdata.Address,
-                            null,
-                            null,
-                            userdata.role
-                        )
-                        val action = LoginFragmentDirections.actionLoginFragmentToHomeActivity(user)
-                        view.findNavController().navigate(action)
-                    }
+                if (response.body()!!.err.toString() == "1") {
+                    Toast.makeText(requireContext(), "Please try login again!", Toast.LENGTH_SHORT).show()
+                    return@launch
                 }
+                val id = response.body()!!.userData!!.id
+                if (id != null) {
+                    dataStoreManager.storeId(id)
+                }
+                view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
+            } else {
+                Toast.makeText(requireContext(), "Please try login again!", Toast.LENGTH_SHORT).show()
+                return@launch
             }
         }
     }
