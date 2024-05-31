@@ -15,14 +15,16 @@ import com.example.e_commerce_app.ui.DetailPrActivity
 import com.example.e_commerce_app.ui.RegisterSellerActivity
 import com.example.e_commerce_app.util.Utils
 
-class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(DiffUtil()) {
+class ProductAdapter(val onclick: ProductOnItemClick) :
+    ListAdapter<Product, ProductAdapter.ProductViewHolder>(DiffUtil()) {
 
-    class ProductViewHolder(val binding: ProductItemHomeBinding, val onclick: ProductOnItemClick) : RecyclerView.ViewHolder(binding.root) {
+    class ProductViewHolder(val binding: ProductItemHomeBinding, val onclick: ProductOnItemClick) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Product) {
             binding.apply {
 //                Log.d("checkImage", "bind: ${item.toString()}")
 
-                val StringSplit= item.product_image.toString()
+                val StringSplit = item.product_image.toString()
                 val prefix = Utils.extractPrefix(StringSplit)
 //                Log.d("prefix", "bind: "+item.product_image.toString())
                 IMGPR.setImageBitmap(Utils.decodeBase64ToBitmap(prefix))
@@ -41,7 +43,7 @@ class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, Pro
         }
 
         override fun areContentsTheSame(p0: Product, p1: Product): Boolean {
-            return p0 == p1
+            return p0 == p1 && p0.id == p1.id
         }
     }
 
@@ -56,7 +58,7 @@ class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, Pro
     }
 
     interface ProductOnItemClick {
-        fun onItemClick(product: Product, position: Int){
+        fun onItemClick(product: Product, position: Int) {
 //            val intent = Intent(context, DetailPrActivity::class.java)
 //            intent.putExtra("product", product)
 //            context.startActivity(intent)

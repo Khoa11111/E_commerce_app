@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
     private val productOnItemClick by lazy {
         object : ProductAdapter.ProductOnItemClick {
             override fun onItemClick(product: Product, position: Int) {
-                Toast.makeText(requireContext(), product.product_name, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), product.id.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getListProduct(productAdapter: ProductAdapter) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitInstance.ProductApi.getAllProduct()
 
@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
                                 it.shop.createdAt
                             )
                             Product(
-                                it.category_id,
+                                it.id,
                                 it.product_name,
                                 it.product_decs,
                                 it.category_id,
