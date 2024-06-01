@@ -10,6 +10,7 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentSignupBinding
@@ -42,18 +43,25 @@ class SignupFragment : Fragment(), OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v) {
+        when (v) {
             binding.btnSignup -> {
-                register(v,binding.inputName.text.toString(), binding.inputEmailAddress.text.toString(), binding.inputPassWord.text.toString(), binding.inputPhoneNumber.text.toString())
+                register(
+                    v,
+                    binding.inputName.text.toString(),
+                    binding.inputEmailAddress.text.toString(),
+                    binding.inputPassWord.text.toString(),
+                    binding.inputPhoneNumber.text.toString()
+                )
             }
+
             binding.goToLogin -> v.findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
     }
 
     fun register(view: View, name: String, email: String, password: String, phoneNumber: String) {
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             val response = try {
-                val user = User(null, name, password, email, phoneNumber, null, null, null, null)
+                val user = User(null, name, password, email, phoneNumber, null, null, null, null, null)
                 RetrofitInstance.UserApi.register(user)
             } catch (e: HttpException) {
                 Toast.makeText(requireContext(), "http error: ${e.message}", Toast.LENGTH_LONG).show()
@@ -83,7 +91,7 @@ class SignupFragment : Fragment(), OnClickListener {
                             .create()
                         alertDialog.show()
                     }
-                }else{
+                } else {
                     withContext(Dispatchers.Main) {
                         view.findNavController().navigate(R.id.action_signupFragment_to_otpCormfirmFragment)
                     }

@@ -7,10 +7,12 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
+import coil.request.Tags
 import java.io.ByteArrayOutputStream
 
 object Utils {
-    val USER_BASE_URL = "https://696a-14-165-200-6.ngrok-free.app/"
+    val USER_BASE_URL = "https://e7cc-14-165-200-6.ngrok-free.app/"
+    val TAG = "CheckProblem"
 
     fun encodeUriToBase64(uri: Uri?, context: Context): String {
         val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)

@@ -1,8 +1,8 @@
 package com.example.e_commerce_app.service
 
 import com.example.e_commerce_app.model.*
-import com.example.e_commerce_app.request.EmailRequest
-import com.example.e_commerce_app.request.RecoveryPasswordRequest
+import com.example.e_commerce_app.requestModel.EmailRequest
+import com.example.e_commerce_app.requestModel.RecoveryPasswordRequest
 import retrofit2.Response
 import retrofit2.http.*
 

@@ -1,5 +1,6 @@
 package com.example.e_commerce_app.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
@@ -17,12 +17,9 @@ import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
-import com.example.e_commerce_app.model.User
 import com.example.e_commerce_app.ui.DetailPrActivity
-import com.example.e_commerce_app.ui.RGSellerOtpActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -38,10 +35,11 @@ class HomeFragment : Fragment() {
             override fun onItemClick(product: Product, position: Int) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     Log.d("onItemClick", "onItemClick:${product} ")
-                    val product = Product(product.id,product.product_name,
-                        null.toString(),0,
-                        null.toString(),0,0,0,
-                        null.toString(),null,null, null.toString(), null.toString()
+                    val product = Product(
+                        product.id, product.product_name,
+                        null.toString(), 0,
+                        null.toString(), 0, 0, 0,
+                        null.toString(), null, null, null.toString(), null.toString()
                     )
                     dataStoreManager.storeCurrentID(product)
                     val intent = Intent(context, DetailPrActivity::class.java)
@@ -61,7 +59,6 @@ class HomeFragment : Fragment() {
         setupProductRecycler()
 
         dataStoreManager = DataStoreProvider.getInstance(requireContext())
-
 
 
 //        gotoFragmentSearch()

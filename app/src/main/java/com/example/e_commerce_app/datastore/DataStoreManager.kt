@@ -8,8 +8,8 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.e_commerce_app.model.Product
+import com.example.e_commerce_app.model.Shop
 import com.example.e_commerce_app.model.User
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DataStoreManager(context: Context) {
@@ -20,6 +20,10 @@ class DataStoreManager(context: Context) {
         val idCurrentUser = intPreferencesKey("ID_CURRENT_USER")
         val emailCurrentUser = stringPreferencesKey("EMAIL_CURRENT_USER")
         val roleCurrentUser = stringPreferencesKey("ROLE_CURRENT_USER")
+        val idShopCurrentUSer = intPreferencesKey("ID_SHOP_CURRENT_USER")
+        val nameShopCurrentUser = stringPreferencesKey("NAME_SHOP_CURRENT_USER")
+        val addressShopCurrentUser = stringPreferencesKey("ADDRESS_SHOP_CURRENT_USER")
+
         val idCurrentProduct = intPreferencesKey("ID_CURRENT_PRODUCT")
         val NameCurrentProduct = stringPreferencesKey("NAME_CURRENT_PRODUCT")
     }
@@ -30,6 +34,9 @@ class DataStoreManager(context: Context) {
             pref[idCurrentUser] = user.id!!
             pref[emailCurrentUser] = user.email
             pref[roleCurrentUser] = user.role!!
+            pref[idShopCurrentUSer] = user.shop!!.id
+            pref[nameShopCurrentUser] = user.shop!!.shop_name!!
+            pref[addressShopCurrentUser] = user.shop!!.Address!!
         }
     }
 
@@ -38,24 +45,33 @@ class DataStoreManager(context: Context) {
             pref[idCurrentUser],
             null,
             null,
-            pref[emailCurrentUser] ?: "",
+            pref[emailCurrentUser]!!,
             null,
             null,
             null,
             null,
-            pref[roleCurrentUser]
+            pref[roleCurrentUser],
+            Shop(
+                pref[idShopCurrentUSer]!!,
+                pref[nameShopCurrentUser],
+                null,
+                pref[addressShopCurrentUser],
+                pref[idCurrentUser]!!,
+                null,
+                null,
+                null
+            )
         )
     }
 
-    suspend fun storeCurrentID(product: Product){
+    suspend fun storeCurrentID(product: Product) {
         mDataStore.edit { pref ->
-            pref[idCurrentProduct] = product.id!!
+            pref[idCurrentProduct] = product.id
             pref[NameCurrentProduct] = product.product_name
-
         }
     }
 
-    suspend fun getCurrentID() = mDataStore.data.map { pref->
+    suspend fun getCurrentID() = mDataStore.data.map { pref ->
         pref[idCurrentProduct]?.let {
             pref[NameCurrentProduct]?.let { it1 ->
                 Product(

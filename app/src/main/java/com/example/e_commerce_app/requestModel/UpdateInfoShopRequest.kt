@@ -1,4 +1,4 @@
-package com.example.e_commerce_app.request
+package com.example.e_commerce_app.requestModel
 
 data class UpdateInfoShopRequest(
     val shop_name: String?,

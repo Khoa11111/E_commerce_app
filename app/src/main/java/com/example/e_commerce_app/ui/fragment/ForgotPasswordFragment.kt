@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.FragmentForgotPasswordBinding
-import com.example.e_commerce_app.request.EmailRequest
-import com.example.e_commerce_app.request.RecoveryPasswordRequest
+import com.example.e_commerce_app.requestModel.EmailRequest
+import com.example.e_commerce_app.requestModel.RecoveryPasswordRequest
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
