@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
@@ -18,13 +17,9 @@ import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
-import com.example.e_commerce_app.model.User
-import com.example.e_commerce_app.ui.CartActivity
 import com.example.e_commerce_app.ui.DetailPrActivity
-import com.example.e_commerce_app.ui.RGSellerOtpActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -69,17 +64,17 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-//        gotoFragmentSearch()
+        gotoSearch()
 
         return binding.root
     }
 
-//    private fun gotoFragmentSearch() {
-//        binding.search.setOnClickListener {
-//            val action = HomeFragmentDirections.actionHomeFragmentToRGSellerOtpActivity()
-//            findNavController().navigate(action)
-//        }
-//    }
+    private fun gotoSearch() {
+        binding.search.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
     private fun setupProductRecycler() {
         productAdpter = ProductAdapter(productOnItemClick)

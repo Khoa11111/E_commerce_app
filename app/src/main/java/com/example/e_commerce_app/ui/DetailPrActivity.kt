@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
-import com.example.e_commerce_app.ChooseVariantActivity
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityDetailPrBinding
+import com.example.e_commerce_app.databinding.ActivityProfileBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
 import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
@@ -228,9 +228,7 @@ class DetailPrActivity : AppCompatActivity() {
                                 shop,
                                 category,
                                 it.createdAt,
-                                it.updatedAt,
-                                it.variant_name,
-                                it.numberSell
+                                it.updatedAt
                             )
                         }
 
