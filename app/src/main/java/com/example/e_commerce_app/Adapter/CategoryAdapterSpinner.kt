@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import com.example.e_commerce_app.model.Category
 
@@ -14,52 +15,26 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ItemCategorySpinnerBinding
+import com.example.e_commerce_app.model.Product
 
 class CategoryAdapterSpinner(
     context: Context,
-    private val onClick: CategoryOnClick
-) : ArrayAdapter<Category>(context, 0) {
-
-    private val categories: MutableList<Category> = mutableListOf()
-
-    fun addAll(newCategories: List<Category>) {
-        categories.clear()
-        categories.addAll(newCategories)
-        notifyDataSetChanged()
-    }
-
-    override fun getCount(): Int = categories.size
-
-    override fun getItem(position: Int): Category? = categories[position]
+    listCategory: List<Category>
+) : ArrayAdapter<Category>(context, 0, listCategory) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return createViewFromResource(convertView, parent, position)
-    }
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_category_spinner, parent, false)
 
-    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return createViewFromResource(convertView, parent, position)
-    }
+        getItem(position)?.let {
+            view.findViewById<TextView>(R.id.tv_selected_spinner_category_name).apply {
+                text = it.category_name
+            }
 
-    private fun createViewFromResource(convertView: View?, parent: ViewGroup, position: Int): View {
-        val binding = if (convertView == null) {
-            val inflater = LayoutInflater.from(context)
-            ItemCategorySpinnerBinding.inflate(inflater, parent, false)
-        } else {
-            ItemCategorySpinnerBinding.bind(convertView)
+            view.findViewById<TextView>(R.id.tv_selected_spinner_category_id).apply {
+                text = it.id.toString()
+            }
         }
 
-        val category = categories[position]
-        binding.tvSelectedSpinnerCategoryId.text = category.id.toString()
-        binding.tvSelectedSpinnerCategoryName.text = category.category_name
-
-        binding.root.setOnClickListener {
-            onClick.onItemClick(category, position)
-        }
-
-        return binding.root
-    }
-
-    interface CategoryOnClick {
-        fun onItemClick(category: Category, position: Int)
+        return view
     }
 }

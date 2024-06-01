@@ -68,6 +68,7 @@ class ProductShopActivity : AppCompatActivity() {
         productShopAdapter = ProductShopAdapter(productOnItemClick)
         lifecycleScope.launch(Dispatchers.IO) {
             dataStoreManager.getCurrentUser().collect{
+                productShopAdapter=ProductShopAdapter(productOnItemClick)
                 getProductShop(productShopAdapter,it.id.toString())
             }
         }

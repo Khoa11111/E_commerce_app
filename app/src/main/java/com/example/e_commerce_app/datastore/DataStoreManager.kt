@@ -89,21 +89,13 @@ class DataStoreManager(context: Context) {
             }
         }
     }
-    suspend fun storeCurrentIDCategory(category: Category){
+    suspend fun storeCurrentIDCategory(id: Int){
         mDataStore.edit { pref ->
-            pref[idCategoryCurrent] = category.id!!
+            pref[idCategoryCurrent] = id
         }
     }
     suspend fun getCurrentIDCategory() = mDataStore.data.map { pref->
-        pref[idCategoryCurrent]?.let {
-            Category(
-                it,
-                null.toString(),
-                null,
-                null.toString(),
-                null.toString()
-            )
-        }
+        pref[idCategoryCurrent]
     }
 
     suspend fun storeShop(shop: Shop){

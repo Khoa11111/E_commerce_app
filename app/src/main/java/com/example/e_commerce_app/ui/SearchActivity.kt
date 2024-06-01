@@ -78,7 +78,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setUpAutoCompleteSearch() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val response = RetrofitInstance.ProductApi.getAllProduct()
+            val response = RetrofitInstance.ProductApi.getAllProduct("1")
 
             if (response.isSuccessful && response.body() != null) {
                 if (response.body()!!.err.toString() == "0") {
@@ -96,7 +96,9 @@ class SearchActivity : AppCompatActivity() {
                             null,
                             null,
                             it.createdAt,
-                            it.updatedAt
+                            it.updatedAt,
+                            it.variant_name,
+                            it.numberSell
                         )
                     }
                     withContext(Dispatchers.Main) {
@@ -113,7 +115,7 @@ class SearchActivity : AppCompatActivity() {
                                     selectedItem.id, selectedItem.product_name,
                                     null.toString(), 0,
                                     null.toString(), 0, 0, 0,
-                                    null.toString(), null, null, null.toString(), null.toString()
+                                    null.toString(), null, null, null.toString(), null.toString(),null,null
                                 )
                                 dataStoreManager.storeCurrentID(product)
                             }

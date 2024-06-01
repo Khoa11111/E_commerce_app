@@ -5,11 +5,14 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.example.e_commerce_app.Adapter.CategoryAdapterSpinner
+import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityCreateProductBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
 import com.example.e_commerce_app.datastore.DataStoreProvider
@@ -25,21 +28,10 @@ import java.io.IOException
 
 class CreateProductActivity : AppCompatActivity() {
     lateinit var binding: ActivityCreateProductBinding
-    lateinit var categoryAdapterSpinner: CategoryAdapterSpinner
+
     lateinit var dataStoreManager: DataStoreManager
     private var uri: Uri? = null
     private var base64String: String = ""
-    private val categoryOnItemClick by lazy {
-        object : CategoryAdapterSpinner.CategoryOnClick {
-            override fun onItemClick(category: Category, position: Int) {
-                lifecycleScope.launch {
-                    dataStoreManager.storeCurrentIDCategory(category)
-                    Log.d("categorySSSS", "onItemClick: ${category}")
-                }
-//                Toast.makeText(this@CreateProductActivity, category.category_name, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
     private val imageContract = registerForActivityResult(ActivityResultContracts.GetContent()) {
         if (it != null) {
             uri = it
@@ -76,7 +68,7 @@ class CreateProductActivity : AppCompatActivity() {
         val Decs =binding.AddDecsProductEdt.text.toString()
         lifecycleScope.launch(Dispatchers.IO) {
             dataStoreManager.getCurrentIDCategory().collect{
-                Log.d("CreateProductgetData", "CreateProductgetData:${it?.id} ")
+                Log.d("CreateProductgetData", "CreateProductgetData:${it} ")
                 lifecycleScope.launch(Dispatchers.IO) {
                     dataStoreManager.getCurrentUser().collect{
                         it.shop?.let { it1 ->
@@ -97,52 +89,52 @@ class CreateProductActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val product=Product(null,Name,Decs,category_id,null,id_Shop,null,Price,base64String,null,null,null,null,variant_name,Numbersell)
-                Log.d("checkProduct", "CreateProduct: ${product}")
-                val response = RetrofitInstance.ProductApi.CreateProduct(product)
-                if (response.isSuccessful && response.body() != null) {
-                    if (response.body()!!.err.toString() == "1") {
-                        withContext(Dispatchers.Main) {
-                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
-                                .setTitle("Add Product!")
-                                .setMessage(
-                                    "\n" +
-                                            "Add Product failed!!!"
-                                )
-                                .setPositiveButton("OK") { dialog, which ->
-                                    // Handle positive button click
-                                    dialog.dismiss()
-                                }
-//                            .setNegativeButton("Cancel") { dialog, which ->
-//                                // Handle negative button click
-//                                dialog.dismiss()
-//                            }
-                                .create()
-                            alertDialog.show()
-                        }
-                    } else {
-                        withContext(Dispatchers.Main) {
-                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
-                                .setTitle("Add Product!")
-                                .setMessage(
-                                    "\n" +
-                                            "Add Product failed!!!"
-                                )
-                                .setPositiveButton("OK") { dialog, which ->
-                                    // Handle positive button click
-                                    dialog.dismiss()
-                                }
-//                            .setNegativeButton("Cancel") { dialog, which ->
-//                                // Handle negative button click
-//                                dialog.dismiss()
-//                            }
-                                .create()
-                            alertDialog.show()
-                            val intent = Intent(applicationContext, ProductShopActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                    // This block executes only if the response is successful and has a body
-                }
+                Log.d("checkProduct", "CreateProduct: ${product.toString()}")
+//                val response = RetrofitInstance.ProductApi.CreateProduct(product)
+//                if (response.isSuccessful && response.body() != null) {
+//                    if (response.body()!!.err.toString() == "1") {
+//                        withContext(Dispatchers.Main) {
+//                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
+//                                .setTitle("Add Product!")
+//                                .setMessage(
+//                                    "\n" +
+//                                            "Add Product failed!!!"
+//                                )
+//                                .setPositiveButton("OK") { dialog, which ->
+//                                    // Handle positive button click
+//                                    dialog.dismiss()
+//                                }
+////                            .setNegativeButton("Cancel") { dialog, which ->
+////                                // Handle negative button click
+////                                dialog.dismiss()
+////                            }
+//                                .create()
+//                            alertDialog.show()
+//                        }
+//                    } else {
+//                        withContext(Dispatchers.Main) {
+//                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
+//                                .setTitle("Add Product!")
+//                                .setMessage(
+//                                    "\n" +
+//                                            "Add Product failed!!!"
+//                                )
+//                                .setPositiveButton("OK") { dialog, which ->
+//                                    // Handle positive button click
+//                                    dialog.dismiss()
+//                                }
+////                            .setNegativeButton("Cancel") { dialog, which ->
+////                                // Handle negative button click
+////                                dialog.dismiss()
+////                            }
+//                                .create()
+//                            alertDialog.show()
+//                            val intent = Intent(applicationContext, ProductShopActivity::class.java)
+//                            startActivity(intent)
+//                        }
+//                    }
+//                    // This block executes only if the response is successful and has a body
+//                }
             }catch (e: HttpException) {
                 Toast.makeText(applicationContext, "http error: ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
@@ -155,8 +147,8 @@ class CreateProductActivity : AppCompatActivity() {
 
 
     private fun setupCategorySpinner() {
-        categoryAdapterSpinner = CategoryAdapterSpinner(this, categoryOnItemClick)
-        binding.spCategory.adapter = categoryAdapterSpinner
+
+
         getCategorySpiner()
     }
 
@@ -170,7 +162,29 @@ class CreateProductActivity : AppCompatActivity() {
                             Category(it.id, it.category_name, it.category_image, it.createdAt, it.updatedAt)
                         }
                         withContext(Dispatchers.Main) {
-                            categoryAdapterSpinner.addAll(listCategory)
+                            val categoryAdapterSpinner = CategoryAdapterSpinner(this@CreateProductActivity,listCategory)
+                            categoryAdapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            binding.spCategory.adapter = categoryAdapterSpinner
+
+                            binding.spCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onItemSelected(
+                                    parent: AdapterView<*>?,
+                                    view: View?,
+                                    position: Int,
+                                    id: Long
+                                ) {
+                                    val selectedItem = categoryAdapterSpinner.getItem(position) as Category
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        dataStoreManager.storeCurrentIDCategory(selectedItem.id)
+                                    }
+
+                                }
+
+                                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                                }
+
+                            }
                         }
                     }
                 }

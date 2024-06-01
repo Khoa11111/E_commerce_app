@@ -17,7 +17,9 @@ import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
+import com.example.e_commerce_app.ui.CartActivity
 import com.example.e_commerce_app.ui.DetailPrActivity
+import com.example.e_commerce_app.ui.SearchActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

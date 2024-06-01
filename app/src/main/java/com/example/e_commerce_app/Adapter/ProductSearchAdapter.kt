@@ -12,8 +12,8 @@ import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 
 class ProductSearchAdapter(
-    val context: Context,
-    val listProduct: List<Product>
+     context: Context,
+     listProduct: List<Product>
 ) : ArrayAdapter<Product>(context, 0, listProduct) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

@@ -10,7 +10,7 @@ import android.util.Log
 import java.io.ByteArrayOutputStream
 
 object Utils {
-    val USER_BASE_URL = "https://e7cc-14-165-200-6.ngrok-free.app/"
+    val USER_BASE_URL = "https://681256280478c3fcb6232a67cf216fca.serveo.net/"
     val TAG = "CheckProblem"
 
     fun encodeUriToBase64(uri: Uri?, context: Context): String {
