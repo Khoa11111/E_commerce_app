@@ -1,5 +1,6 @@
 package com.example.e_commerce_app.util
 
+import com.example.e_commerce_app.service.CartService
 import com.example.e_commerce_app.service.CategoryService
 import com.example.e_commerce_app.service.ProductService
 import com.example.e_commerce_app.service.UserService
@@ -30,5 +31,12 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CategoryService::class.java)
+    }
+    val CartApi: CartService by lazy {
+        Retrofit.Builder()
+            .baseUrl(Utils.USER_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CartService::class.java)
     }
 }

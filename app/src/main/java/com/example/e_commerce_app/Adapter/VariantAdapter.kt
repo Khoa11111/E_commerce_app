@@ -1,5 +1,6 @@
 package com.example.e_commerce_app.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -20,6 +21,7 @@ class VariantAdapter(val onClick:VariantOnClick): ListAdapter<Variant,VariantAda
                 binding.NameVariantItem.text=item.variant_name
                 val VariantImage= item.variant_image
                 val prefix = VariantImage?.let { Utils.extractPrefix(it) }
+                Log.d("variantImage", "bind: ${prefix}")
                 binding.ImgVariant.setImageBitmap(prefix?.let { Utils.decodeBase64ToBitmap(it) })
                 root.setOnClickListener {
                     onclick.onItemClick(item, position)
@@ -43,7 +45,7 @@ class VariantAdapter(val onClick:VariantOnClick): ListAdapter<Variant,VariantAda
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VariantViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item_home, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_variant, parent, false)
         return VariantViewHolder(binding = ItemVariantBinding.bind(view), onClick)
     }
 

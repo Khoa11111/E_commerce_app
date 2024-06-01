@@ -7,9 +7,9 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.User
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DataStoreManager(context: Context) {
@@ -22,6 +22,8 @@ class DataStoreManager(context: Context) {
         val roleCurrentUser = stringPreferencesKey("ROLE_CURRENT_USER")
         val idCurrentProduct = intPreferencesKey("ID_CURRENT_PRODUCT")
         val NameCurrentProduct = stringPreferencesKey("NAME_CURRENT_PRODUCT")
+        val PriceCurrentProduct = intPreferencesKey("PRICE_CURRENT_PRODUCT")
+        val idCategoryCurrent = intPreferencesKey("CATEGORY_CURRENT_PRODUCT")
     }
 
     // store user's attributes needed
@@ -51,29 +53,48 @@ class DataStoreManager(context: Context) {
         mDataStore.edit { pref ->
             pref[idCurrentProduct] = product.id!!
             pref[NameCurrentProduct] = product.product_name
-
+            pref[PriceCurrentProduct] =product.product_price
         }
     }
 
     suspend fun getCurrentID() = mDataStore.data.map { pref->
         pref[idCurrentProduct]?.let {
             pref[NameCurrentProduct]?.let { it1 ->
-                Product(
-                    it,
-                    it1,
-                    null.toString(),
-                    0,
-                    null.toString(),
-                    0,
-                    0,
-                    0,
-                    null.toString(),
-                    null,
-                    null,
-                    null.toString(),
-                    null.toString()
-                )
+                pref[PriceCurrentProduct]?.let { it2 ->
+                    Product(
+                        it,
+                        it1,
+                        null.toString(),
+                        0,
+                        null.toString(),
+                        0,
+                        0,
+                        it2,
+                        null.toString(),
+                        null,
+                        null,
+                        null.toString(),
+                        null.toString()
+                    )
+                }
             }
         }
     }
+    suspend fun storeCurrentIDCategory(category: Category){
+        mDataStore.edit { pref ->
+            pref[idCategoryCurrent] = category.id!!
+        }
+    }
+    suspend fun getCurrentIDCategory() = mDataStore.data.map { pref->
+        pref[idCategoryCurrent]?.let {
+            Category(
+                it,
+                null.toString(),
+                null,
+                null.toString(),
+                null.toString()
+            )
+        }
+    }
+
 }

@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
+import com.example.e_commerce_app.ChooseVariantActivity
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityDetailPrBinding
-import com.example.e_commerce_app.databinding.ActivityProfileBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
 import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
@@ -34,9 +34,15 @@ class DetailPrActivity : AppCompatActivity() {
         object : ProductAdapter.ProductOnItemClick {
             override fun onItemClick(product: Product, position: Int) {
                 lifecycleScope.launch(Dispatchers.IO) {
-//                    dataStoreManager.storeCurrentID()
-//                    val intent = Intent(this@DetailPrActivity, RGSellerOtpActivity::class.java)
-//                    startActivity(intent)
+                    Log.d("onItemClick", "onItemClick:${product} ")
+                    val product = Product(product.id,product.product_name,
+                        null.toString(),0,
+                        null.toString(),0,0,product.product_price,
+                        null.toString(),null,null, null.toString(), null.toString()
+                    )
+                    dataStoreManager.storeCurrentID(product)
+                    val intent = Intent(this@DetailPrActivity, DetailPrActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
@@ -66,6 +72,11 @@ class DetailPrActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnaddCart.setOnClickListener{
+            val intent = Intent(applicationContext, ChooseVariantActivity::class.java)
+            intent.putExtra("quanlity",binding.edtSlgCart.text.toString().toInt())
+            startActivity(intent)
+        }
 
         getDetailProductRun()
         setupProductRecycler()
@@ -133,6 +144,7 @@ class DetailPrActivity : AppCompatActivity() {
                          val prefix1 = ImageShop?.let { Utils.extractPrefix(it) }
 
                          //set data shop
+                         Log.d("ShopImage", "getDetailProduct: ${prefix1}")
                          binding.imgShopDetai.setImageBitmap(prefix1?.let { Utils.decodeBase64ToBitmap(it) })
                          binding.namePRShop.text=NameShop
                          if (statusShop=="1"){
@@ -177,7 +189,7 @@ class DetailPrActivity : AppCompatActivity() {
     private fun getListProduct(productAdapter: ProductAdapter) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitInstance.ProductApi.getAllProduct()
+                val response = RetrofitInstance.ProductApi.getAllProduct("1")
                 Log.d("getProductHome", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {

@@ -1,18 +1,13 @@
 package com.example.e_commerce_app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.e_commerce_app.Adapter.CategoryAdapterSpinner
 import com.example.e_commerce_app.Adapter.ProductShopAdapter
-import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityProductShopBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
 import com.example.e_commerce_app.datastore.DataStoreProvider
@@ -48,7 +43,8 @@ class ProductShopActivity : AppCompatActivity() {
         dataStoreManager = DataStoreProvider.getInstance(this)
 
         binding.Addproduct.setOnClickListener{
-
+            val intent = Intent(applicationContext, CreateProductActivity::class.java)
+            startActivity(intent)
         }
 
         binding.BtnBackProduct.setOnClickListener{

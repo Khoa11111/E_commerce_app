@@ -10,7 +10,7 @@ import android.util.Log
 import java.io.ByteArrayOutputStream
 
 object Utils {
-    val USER_BASE_URL = "https://696a-14-165-200-6.ngrok-free.app/"
+    val USER_BASE_URL = "https://e7cc-14-165-200-6.ngrok-free.app/"
 
     fun encodeUriToBase64(uri: Uri?, context: Context): String {
         val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
