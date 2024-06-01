@@ -18,6 +18,7 @@ import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
 import com.example.e_commerce_app.ui.DetailPrActivity
+import com.example.e_commerce_app.ui.SearchActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,17 +62,17 @@ class HomeFragment : Fragment() {
         dataStoreManager = DataStoreProvider.getInstance(requireContext())
 
 
-//        gotoFragmentSearch()
+        gotoSearch()
 
         return binding.root
     }
 
-//    private fun gotoFragmentSearch() {
-//        binding.search.setOnClickListener {
-//            val action = HomeFragmentDirections.actionHomeFragmentToRGSellerOtpActivity()
-//            findNavController().navigate(action)
-//        }
-//    }
+    private fun gotoSearch() {
+        binding.search.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
     private fun setupProductRecycler() {
         productAdpter = ProductAdapter(productOnItemClick)
