@@ -1,7 +1,7 @@
 package com.example.e_commerce_app.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.e_commerce_app.R
 
 class ShopActivity : AppCompatActivity() {

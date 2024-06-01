@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream
 
 object Utils {
     val USER_BASE_URL = "https://e7cc-14-165-200-6.ngrok-free.app/"
+    val TAG = "CheckProblem"
 
     fun encodeUriToBase64(uri: Uri?, context: Context): String {
         val bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, uri)

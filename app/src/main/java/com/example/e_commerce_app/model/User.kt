@@ -9,5 +9,6 @@ data class User(
     val Address: String?,
     val imgUS: String?,
     val thongTinThanhToan: String?,
-    val role: String?
+    val role: String?,
+    val shop: Shop?
 )

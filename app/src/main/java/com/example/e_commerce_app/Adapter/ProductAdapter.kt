@@ -15,11 +15,14 @@ import com.example.e_commerce_app.ui.DetailPrActivity
 import com.example.e_commerce_app.ui.RegisterSellerActivity
 import com.example.e_commerce_app.util.Utils
 
-class ProductAdapter(val onclick: ProductOnItemClick) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(DiffUtil()) {
+class ProductAdapter(val onclick: ProductOnItemClick) :
+    ListAdapter<Product, ProductAdapter.ProductViewHolder>(DiffUtil()) {
 
-    class ProductViewHolder(val binding: ProductItemHomeBinding, val onclick: ProductOnItemClick) : RecyclerView.ViewHolder(binding.root) {
+    class ProductViewHolder(val binding: ProductItemHomeBinding, val onclick: ProductOnItemClick) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Product) {
             binding.apply {
+//                Log.d("checkImage", "bind: ${item.toString()}")
 
                 val StringSplit= item.product_image
                 val prefix = Utils.extractPrefix(StringSplit)

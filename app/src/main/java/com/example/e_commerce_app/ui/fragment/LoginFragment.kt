@@ -17,6 +17,7 @@ import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.User
 import com.example.e_commerce_app.ui.LoginSignupActivity
 import com.example.e_commerce_app.util.RetrofitInstance
+import com.example.e_commerce_app.util.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -63,6 +64,7 @@ class LoginFragment : Fragment(), OnClickListener {
             null,
             null,
             null,
+            null,
             null
         )
         lifecycleScope.launch {
@@ -76,9 +78,21 @@ class LoginFragment : Fragment(), OnClickListener {
                 val id = response.body()!!.userData!!.id
                 val email = response.body()!!.userData!!.email
                 val role = response.body()!!.userData!!.role
+                val shop = response.body()!!.userData!!.shop
                 if (id != null && role != null) {
                     dataStoreManager.storeCurrenUser(
-                        User(id, null, null, email, null, null, null, null, role)
+                        User(
+                            id,
+                            null,
+                            null,
+                            email,
+                            null,
+                            null,
+                            null,
+                            null,
+                            role,
+                            shop
+                        )
                     )
                 }
                 view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)

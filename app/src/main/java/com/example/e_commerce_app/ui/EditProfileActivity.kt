@@ -24,7 +24,7 @@ import java.io.IOException
 import java.util.jar.Attributes.Name
 
 class EditProfileActivity : AppCompatActivity() {
-    lateinit var binding:ActivityEditProfileBinding
+    lateinit var binding: ActivityEditProfileBinding
     private lateinit var dataStoreManager: DataStoreManager
     private var uri: Uri? = null
     private var base64String: String = ""
@@ -37,41 +37,42 @@ class EditProfileActivity : AppCompatActivity() {
 //            Log.d("check", base64String.length.toString())
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityEditProfileBinding.inflate(layoutInflater)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         getUserRun()
 
         dataStoreManager = DataStoreProvider.getInstance(this)
 
-        binding.cvIMGProfile.setOnClickListener{
+        binding.cvIMGProfile.setOnClickListener {
             imageContract.launch("image/*")
         }
 
-        binding.SubmitAdd.setOnClickListener{
-            val NamePF= binding.prEditProfile.text.toString()
-            val AddressPF=binding.prEmailAddress.text.toString()
-            val PhonePF=binding.prPhoneNumber.text.toString()
-            UpdateProfile(NamePF,AddressPF,PhonePF,base64String)
+        binding.SubmitAdd.setOnClickListener {
+            val NamePF = binding.prEditProfile.text.toString()
+            val AddressPF = binding.prEmailAddress.text.toString()
+            val PhonePF = binding.prPhoneNumber.text.toString()
+            UpdateProfile(NamePF, AddressPF, PhonePF, base64String)
         }
 
     }
 
-    private fun UpdateProfile(Name:String?,Address:String,Phone:String,ImgUs:String) {
+    private fun UpdateProfile(Name: String?, Address: String, Phone: String, ImgUs: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                dataStoreManager.getCurrentUser().collect{
-                    var user : User?=null
-                    if (ImgUs==""){
-                         user = User(it.id,Name,null,it.email,Phone,Address,null,null,null)
+                dataStoreManager.getCurrentUser().collect {
+                    var user: User? = null
+                    if (ImgUs == "") {
+                        user = User(it.id, Name, null, it.email, Phone, Address, null, null, null, null)
                         Log.d("Usersss", "UpdateProfile:${user} ")
-                    }else  {
-                         user = User(it.id,Name,null,it.email,Phone,Address,base64String,null,null)
+                    } else {
+                        user = User(it.id, Name, null, it.email, Phone, Address, base64String, null, null, null)
                         Log.d("Usersss", "UpdateProfile:${user} ")
                     }
-                    val response = RetrofitInstance.UserApi.UpdateUser(it.id.toString(),user)
+                    val response = RetrofitInstance.UserApi.UpdateUser(it.id.toString(), user)
                     if (response.isSuccessful && response.body() != null) {
                         withContext(Dispatchers.Main) {
                             val alertDialog = AlertDialog.Builder(this@EditProfileActivity)
@@ -89,7 +90,7 @@ class EditProfileActivity : AppCompatActivity() {
                                 .create()
                             alertDialog.show()
                         }
-                    }else{
+                    } else {
                         val alertDialog = AlertDialog.Builder(this@EditProfileActivity)
                             .setTitle("Edit Profile")
                             .setMessage(
@@ -105,7 +106,7 @@ class EditProfileActivity : AppCompatActivity() {
                     }
 
                 }
-            }catch (e: HttpException) {
+            } catch (e: HttpException) {
                 Toast.makeText(this@EditProfileActivity, "http error: ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             } catch (e: IOException) {
@@ -115,9 +116,9 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    fun getUserRun(){
+    fun getUserRun() {
         lifecycleScope.launch(Dispatchers.IO) {
-            dataStoreManager.getCurrentUser().collect{
+            dataStoreManager.getCurrentUser().collect {
                 getUser(it.id.toString())
             }
         }
@@ -138,7 +139,7 @@ class EditProfileActivity : AppCompatActivity() {
 
             if (response.isSuccessful && response.body() != null) {
                 withContext(Dispatchers.Main) {
-                    val Name= response.body()!!.userData?.Name
+                    val Name = response.body()!!.userData?.Name
                     val Address = response.body()!!.userData?.Address
                     val Phone = response.body()!!.userData?.SDT
                     val ImageProfile = response.body()!!.userData?.imgUS
@@ -155,7 +156,6 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
     }
-
 
 
 }

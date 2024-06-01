@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
@@ -17,9 +18,12 @@ import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
+import com.example.e_commerce_app.model.User
 import com.example.e_commerce_app.ui.DetailPrActivity
+import com.example.e_commerce_app.ui.RGSellerOtpActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -81,7 +85,7 @@ class HomeFragment : Fragment() {
     private fun getListProduct(productAdapter: ProductAdapter) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitInstance.ProductApi.getAllProduct("1")
+                val response = RetrofitInstance.ProductApi.getAllProduct()
                 Log.d("getProductHome", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {

@@ -28,24 +28,28 @@ class ProfileActivity : AppCompatActivity() {
         getUserRun()
         dataStoreManager = DataStoreProvider.getInstance(this)
 
-        binding.prEditProfile.setOnClickListener{
+        binding.prEditProfile.setOnClickListener {
             val intent = Intent(applicationContext, EditProfileActivity::class.java)
             startActivity(intent)
         }
-        binding.prSignOut.setOnClickListener{
+        binding.prSignOut.setOnClickListener {
             val intent = Intent(applicationContext, LoginSignupActivity::class.java)
             startActivity(intent)
+        }
+        binding.btnBackProfile.setOnClickListener {
+            finish()
         }
     }
 
 
-    fun getUserRun(){
+    fun getUserRun() {
         lifecycleScope.launch(Dispatchers.IO) {
-            dataStoreManager.getCurrentUser().collect{
+            dataStoreManager.getCurrentUser().collect {
                 getUser(it.id.toString())
             }
         }
     }
+
     fun getUser(id: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val response = try {
@@ -60,15 +64,16 @@ class ProfileActivity : AppCompatActivity() {
 
             if (response.isSuccessful && response.body() != null) {
                 withContext(Dispatchers.Main) {
-                    val Name= response.body()!!.userData?.Name
+                    val Name = response.body()!!.userData?.Name
                     val Address = response.body()!!.userData?.Address
                     val ImageProfile = response.body()!!.userData?.imgUS
                     val Email = response.body()!!.userData?.email
                     val Phone = response.body()!!.userData?.SDT
-                    binding.profileFullname.text=Name
-                    binding.prEmailAddress.text=Email
-                    binding.prPhoneNumber.text=Phone
-                    binding.prResidentialAddress.text=Address
+                    binding.profileFullname.text = Name
+                    binding.prEmailAddress.text = Email
+                    binding.userEmail.text = Email
+                    binding.prPhoneNumber.text = Phone
+                    binding.prResidentialAddress.text = Address
 
 
                     val prefix = ImageProfile?.let { Utils.extractPrefix(it) }
