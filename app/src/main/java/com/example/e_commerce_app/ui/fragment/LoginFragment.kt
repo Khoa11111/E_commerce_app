@@ -75,10 +75,12 @@ class LoginFragment : Fragment(), OnClickListener {
                     Toast.makeText(requireContext(), "Please try login again!", Toast.LENGTH_SHORT).show()
                     return@launch
                 }
+
                 val id = response.body()!!.userData!!.id
                 val email = response.body()!!.userData!!.email
                 val role = response.body()!!.userData!!.role
                 val shop = response.body()!!.userData!!.shop
+                Log.d("CheckLogin", "login: ${shop}")
                 if (id != null && role != null) {
                     dataStoreManager.storeCurrenUser(
                         User(
@@ -94,6 +96,11 @@ class LoginFragment : Fragment(), OnClickListener {
                             shop
                         )
                     )
+                    shop?.let {
+                        dataStoreManager.storeShop(
+                            it
+                        )
+                    }
                 }
                 view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
             } else {

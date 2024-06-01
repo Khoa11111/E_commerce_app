@@ -53,21 +53,20 @@ class ShopProfileActivity : AppCompatActivity(), OnClickListener {
     private fun setValueInfo() {
         lifecycleScope.launch {
             dataStoreManager.getCurrentUser().collect {
-                it.shop.let { shop ->
-                    val response = RetrofitInstance.ShopApi.getShopByID(shop!!.id)
+                val response = RetrofitInstance.ShopApi.getShopByID(it.id)
 
-                    if (response.isSuccessful && response.body() != null) {
-                        val shopName = response.body()!!.userData.shop_name
-                        val shopAddress = response.body()!!.userData.Address
-                        val shopImage = response.body()!!.userData.Image_shop
+                if (response.isSuccessful && response.body() != null) {
+                    Log.d("setValueInfo", "setValueInfo:${response.body()} ")
+                    val shopName = response.body()!!.userData.shop_name
+                    val shopAddress = response.body()!!.userData.Address
+                    val shopImage = response.body()!!.userData.Image_shop
 
-                        val bitmap = Utils.decodeBase64ToBitmap(Utils.extractPrefix(shopImage))
+                    val bitmap = Utils.decodeBase64ToBitmap(Utils.extractPrefix(shopImage))
 
-                        withContext(Dispatchers.Main) {
-                            binding.edtNameProfile.setText(shopName)
-                            binding.prAddress.setText(shopAddress)
+                    withContext(Dispatchers.Main) {
+                        binding.edtNameProfile.setText(shopName)
+                        binding.prAddress.setText(shopAddress)
                             binding.imgProfile.setImageBitmap(bitmap)
-                        }
                     }
                 }
             }

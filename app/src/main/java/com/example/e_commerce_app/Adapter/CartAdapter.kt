@@ -8,12 +8,19 @@ import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ItemCartBinding
+import com.example.e_commerce_app.util.Utils
 
 class CartAdapter(val onClick: ProductCartonClick) : ListAdapter<Cart, CartAdapter.CartViewProduct>(DiffUtil()) {
     class CartViewProduct(val binding: ItemCartBinding, val onclick: ProductCartonClick) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Cart) {
             binding.apply {
+                val StringSplit= item.productCartData?.product_image
+                val prefix = Utils.extractPrefix(StringSplit.toString())
+                binding.imgCartt.setImageBitmap(Utils.decodeBase64ToBitmap(prefix))
+                binding.nameCartt.text= item.productCartData!!.product_name
+                binding.giaCartt.text= item.price.toString()
+                binding.edtSlCartt.text=item.soLuongMua.toString()
                 root.setOnClickListener {
                     onclick.onItemClick(item, position)
                 }

@@ -12,7 +12,7 @@ import retrofit2.http.Path
 interface ShopService {
     @GET("/api/v1/shop/getShop/{id}")
     suspend fun getShopByID(
-        @Path("id") id: Int
+        @Path("id") id: Int?
     ): Response<ShopDataResponse>
 
     @PUT("/api/v1/shop/{idShop}")

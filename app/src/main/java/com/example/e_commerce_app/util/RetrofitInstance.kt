@@ -1,8 +1,6 @@
 package com.example.e_commerce_app.util
 
-import com.example.e_commerce_app.service.CategoryService
-import com.example.e_commerce_app.service.ProductService
-import com.example.e_commerce_app.service.UserService
+import com.example.e_commerce_app.service.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

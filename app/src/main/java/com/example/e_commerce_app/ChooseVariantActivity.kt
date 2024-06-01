@@ -94,7 +94,7 @@ class ChooseVariantActivity : AppCompatActivity() {
                             val alertDialog = AlertDialog.Builder(this@ChooseVariantActivity)
                                 .setTitle("Add Cart!")
                                 .setMessage("\n" +
-                                        " add product to your cart failed!!")
+                                        " You have add product to your cart!!")
                                 .setPositiveButton("OK") { dialog, which ->
                                     // Handle positive button click
                                     dialog.dismiss()
@@ -114,7 +114,7 @@ class ChooseVariantActivity : AppCompatActivity() {
                             val alertDialog = AlertDialog.Builder(this@ChooseVariantActivity)
                                 .setTitle("Add Cart!")
                                 .setMessage("\n" +
-                                        "You have add product to your cart!!")
+                                        "add product to your cart failed!!")
                                 .setPositiveButton("OK") { dialog, which ->
                                     // Handle positive button click
                                     dialog.dismiss()

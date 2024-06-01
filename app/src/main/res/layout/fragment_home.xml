@@ -22,14 +22,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="70dp"
                 android:background="@drawable/corner_edt_seller"
                 app:drawableStartCompat="@drawable/ic_search"
                 android:drawablePadding="5dp"
                 android:gravity="center|start"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                />
+
+        <ImageButton
+                android:id="@+id/CartBtn"
+                android:background="@color/lightBlue"
+                android:src="@drawable/icon_cart"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.988"
+                app:layout_constraintTop_toTopOf="parent"
                 />
 
         <androidx.constraintlayout.widget.ConstraintLayout

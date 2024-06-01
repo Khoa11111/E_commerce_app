@@ -7,9 +7,10 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
+import com.example.e_commerce_app.model.Shop
 import com.example.e_commerce_app.model.User
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DataStoreManager(context: Context) {
@@ -36,9 +37,7 @@ class DataStoreManager(context: Context) {
             pref[idCurrentUser] = user.id!!
             pref[emailCurrentUser] = user.email
             pref[roleCurrentUser] = user.role!!
-            pref[idShopCurrentUSer] = user.shop!!.id
-            pref[nameShopCurrentUser] = user.shop!!.shop_name!!
-            pref[addressShopCurrentUser] = user.shop!!.Address!!
+
         }
     }
 
@@ -53,22 +52,13 @@ class DataStoreManager(context: Context) {
             null,
             null,
             pref[roleCurrentUser],
-            Shop(
-                pref[idShopCurrentUSer]!!,
-                pref[nameShopCurrentUser],
-                null,
-                pref[addressShopCurrentUser],
-                pref[idCurrentUser]!!,
-                null,
-                null,
-                null
-            )
+            null
         )
     }
 
     suspend fun storeCurrentID(product: Product) {
         mDataStore.edit { pref ->
-            pref[idCurrentProduct] = product.id
+            pref[idCurrentProduct] = product.id!!
             pref[NameCurrentProduct] = product.product_name
             pref[PriceCurrentProduct] =product.product_price
         }
@@ -91,7 +81,9 @@ class DataStoreManager(context: Context) {
                         null,
                         null,
                         null.toString(),
-                        null.toString()
+                        null.toString(),
+                        null,
+                        null
                     )
                 }
             }
@@ -113,4 +105,30 @@ class DataStoreManager(context: Context) {
             )
         }
     }
+
+    suspend fun storeShop(shop: Shop){
+        mDataStore.edit {pref->
+            pref[idShopCurrentUSer] = shop!!.id
+            pref[nameShopCurrentUser] = shop.shop_name!!
+            pref[addressShopCurrentUser] = shop.Address!!
+        }
+    }
+    suspend fun getShop() = mDataStore.data.map { pref->
+        pref[idShopCurrentUSer]?.let {
+            pref[idCurrentUser]?.let { it1 ->
+                Shop(
+                    it,
+                    pref[nameShopCurrentUser],
+                    null,
+                    pref[addressShopCurrentUser],
+                    it1,
+                    null,
+                    null,
+                    null
+                )
+            }
+        }
+
+    }
+
 }

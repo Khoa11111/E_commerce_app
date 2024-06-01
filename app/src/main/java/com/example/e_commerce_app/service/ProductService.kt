@@ -5,6 +5,7 @@ import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.ResponseData
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -29,4 +30,6 @@ interface ProductService {
 
     @POST("/api/v1/product")
     suspend fun CreateProduct(@Body product: Product) : Response<ResponseData>
+
+
 }

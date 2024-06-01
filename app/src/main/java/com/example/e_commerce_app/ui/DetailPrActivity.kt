@@ -38,7 +38,7 @@ class DetailPrActivity : AppCompatActivity() {
                     val product = Product(product.id,product.product_name,
                         null.toString(),0,
                         null.toString(),0,0,product.product_price,
-                        null.toString(),null,null, null.toString(), null.toString()
+                        null.toString(),null,null, null.toString(), null.toString(),null,null
                     )
                     dataStoreManager.storeCurrentID(product)
                     val intent = Intent(this@DetailPrActivity, DetailPrActivity::class.java)
@@ -228,7 +228,9 @@ class DetailPrActivity : AppCompatActivity() {
                                 shop,
                                 category,
                                 it.createdAt,
-                                it.updatedAt
+                                it.updatedAt,
+                                it.variant_name,
+                                it.numberSell
                             )
                         }
 

@@ -19,6 +19,7 @@ import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.model.Shop
 import com.example.e_commerce_app.model.User
+import com.example.e_commerce_app.ui.CartActivity
 import com.example.e_commerce_app.ui.DetailPrActivity
 import com.example.e_commerce_app.ui.RGSellerOtpActivity
 import com.example.e_commerce_app.util.RetrofitInstance
@@ -42,7 +43,7 @@ class HomeFragment : Fragment() {
                     val product = Product(product.id,product.product_name,
                         null.toString(),0,
                         null.toString(),0,0, product.product_price,
-                        null.toString(),null,null, null.toString(), null.toString()
+                        null.toString(),null,null, null.toString(), null.toString(),null,null
                     )
                     dataStoreManager.storeCurrentID(product)
                     val intent = Intent(context, DetailPrActivity::class.java)
@@ -63,7 +64,10 @@ class HomeFragment : Fragment() {
 
         dataStoreManager = DataStoreProvider.getInstance(requireContext())
 
-
+        binding.CartBtn.setOnClickListener{
+            val intent = Intent(requireContext(), CartActivity::class.java)
+            startActivity(intent)
+        }
 
 //        gotoFragmentSearch()
 
@@ -85,7 +89,7 @@ class HomeFragment : Fragment() {
     private fun getListProduct(productAdapter: ProductAdapter) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitInstance.ProductApi.getAllProduct()
+                val response = RetrofitInstance.ProductApi.getAllProduct("1")
                 Log.d("getProductHome", response.body().toString())
                 if (response.isSuccessful && response.body() != null) {
                     if (response.body()!!.err.toString() == "0") {
@@ -124,7 +128,9 @@ class HomeFragment : Fragment() {
                                 shop,
                                 category,
                                 it.createdAt,
-                                it.updatedAt
+                                it.updatedAt,
+                                it.variant_name,
+                                it.numberSell
                             )
                         }
 

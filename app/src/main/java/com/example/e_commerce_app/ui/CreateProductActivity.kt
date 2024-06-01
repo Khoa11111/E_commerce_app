@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.example.e_commerce_app.Adapter.CategoryAdapterSpinner
@@ -15,6 +16,7 @@ import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
 import com.example.e_commerce_app.model.Product
 import com.example.e_commerce_app.util.RetrofitInstance
+import com.example.e_commerce_app.util.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,9 +34,18 @@ class CreateProductActivity : AppCompatActivity() {
             override fun onItemClick(category: Category, position: Int) {
                 lifecycleScope.launch {
                     dataStoreManager.storeCurrentIDCategory(category)
+                    Log.d("categorySSSS", "onItemClick: ${category}")
                 }
 //                Toast.makeText(this@CreateProductActivity, category.category_name, Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+    private val imageContract = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        if (it != null) {
+            uri = it
+            binding.AddImageProductEdt.setImageURI(uri)
+            base64String = Utils.encodeUriToBase64(uri!!, applicationContext)
+            Log.d("check", base64String.length.toString())
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +55,15 @@ class CreateProductActivity : AppCompatActivity() {
         dataStoreManager = DataStoreProvider.getInstance(this)
         setupCategorySpinner()
 
-        binding.SubmitAdd.setOnClickListener{
+        binding.AddImageProductEdt.setOnClickListener{
+            imageContract.launch("image/*")
+        }
 
+        binding.SubmitAdd.setOnClickListener{
+            CreateProductgetData()
+        }
+        binding.CancleBtn.setOnClickListener{
+            finish()
         }
     }
 
@@ -54,11 +72,21 @@ class CreateProductActivity : AppCompatActivity() {
         val Price=binding.AddPriceProductEdt.text.toString().toInt()
         val NumberSell = binding.NumberSell.text.toString().toInt()
         val variant_name = binding.AddNameVariantEdt.text.toString()
-        val id_Category = binding.spCategory.id.toString().toInt()
+
         val Decs =binding.AddDecsProductEdt.text.toString()
         lifecycleScope.launch(Dispatchers.IO) {
-            dataStoreManager.getCurrentUser().collect{
-                CreateProduct(NameProduct,Price,Decs,id_Shop:Int,id_Category,variant_name,NumberSell)
+            dataStoreManager.getCurrentIDCategory().collect{
+                Log.d("CreateProductgetData", "CreateProductgetData:${it?.id} ")
+                lifecycleScope.launch(Dispatchers.IO) {
+                    dataStoreManager.getCurrentUser().collect{
+                        it.shop?.let { it1 ->
+                            it?.id?.let { it2 ->
+                                CreateProduct(NameProduct,Price,Decs,
+                                    it1.id, it2,variant_name,NumberSell)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -69,52 +97,52 @@ class CreateProductActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val product=Product(null,Name,Decs,category_id,null,id_Shop,null,Price,base64String,null,null,null,null,variant_name,Numbersell)
-                Log.d("product", "CreateProduct: ${product}")
-//                val response = RetrofitInstance.ProductApi.CreateProduct(product)
-//                if (response.isSuccessful && response.body() != null) {
-//                    if (response.body()!!.err.toString() == "1") {
-//                        withContext(Dispatchers.Main) {
-//                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
-//                                .setTitle("Add Product!")
-//                                .setMessage(
-//                                    "\n" +
-//                                            "Add Product failed!!!"
-//                                )
-//                                .setPositiveButton("OK") { dialog, which ->
-//                                    // Handle positive button click
-//                                    dialog.dismiss()
-//                                }
-////                            .setNegativeButton("Cancel") { dialog, which ->
-////                                // Handle negative button click
-////                                dialog.dismiss()
-////                            }
-//                                .create()
-//                            alertDialog.show()
-//                        }
-//                    } else {
-//                        withContext(Dispatchers.Main) {
-//                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
-//                                .setTitle("Add Product!")
-//                                .setMessage(
-//                                    "\n" +
-//                                            "Add Product failed!!!"
-//                                )
-//                                .setPositiveButton("OK") { dialog, which ->
-//                                    // Handle positive button click
-//                                    dialog.dismiss()
-//                                }
-////                            .setNegativeButton("Cancel") { dialog, which ->
-////                                // Handle negative button click
-////                                dialog.dismiss()
-////                            }
-//                                .create()
-//                            alertDialog.show()
-//                            val intent = Intent(applicationContext, ProductShopActivity::class.java)
-//                            startActivity(intent)
-//                        }
-//                    }
-//                    // This block executes only if the response is successful and has a body
-//                }
+                Log.d("checkProduct", "CreateProduct: ${product}")
+                val response = RetrofitInstance.ProductApi.CreateProduct(product)
+                if (response.isSuccessful && response.body() != null) {
+                    if (response.body()!!.err.toString() == "1") {
+                        withContext(Dispatchers.Main) {
+                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
+                                .setTitle("Add Product!")
+                                .setMessage(
+                                    "\n" +
+                                            "Add Product failed!!!"
+                                )
+                                .setPositiveButton("OK") { dialog, which ->
+                                    // Handle positive button click
+                                    dialog.dismiss()
+                                }
+//                            .setNegativeButton("Cancel") { dialog, which ->
+//                                // Handle negative button click
+//                                dialog.dismiss()
+//                            }
+                                .create()
+                            alertDialog.show()
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            val alertDialog = AlertDialog.Builder(this@CreateProductActivity)
+                                .setTitle("Add Product!")
+                                .setMessage(
+                                    "\n" +
+                                            "Add Product failed!!!"
+                                )
+                                .setPositiveButton("OK") { dialog, which ->
+                                    // Handle positive button click
+                                    dialog.dismiss()
+                                }
+//                            .setNegativeButton("Cancel") { dialog, which ->
+//                                // Handle negative button click
+//                                dialog.dismiss()
+//                            }
+                                .create()
+                            alertDialog.show()
+                            val intent = Intent(applicationContext, ProductShopActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    // This block executes only if the response is successful and has a body
+                }
             }catch (e: HttpException) {
                 Toast.makeText(applicationContext, "http error: ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch

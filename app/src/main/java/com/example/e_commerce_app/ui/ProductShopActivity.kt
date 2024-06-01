@@ -117,7 +117,9 @@ class ProductShopActivity : AppCompatActivity() {
                                 shop,
                                 category,
                                 it.createdAt,
-                                it.updatedAt
+                                it.updatedAt,
+                                it.variant_name,
+                                it.numberSell
                             )
                         }
 

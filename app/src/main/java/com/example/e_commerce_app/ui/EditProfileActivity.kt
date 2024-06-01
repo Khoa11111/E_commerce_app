@@ -51,6 +51,10 @@ class EditProfileActivity : AppCompatActivity() {
             imageContract.launch("image/*")
         }
 
+        binding.btnBackProfile.setOnClickListener{
+            finish()
+        }
+
         binding.SubmitAdd.setOnClickListener {
             val NamePF = binding.prEditProfile.text.toString()
             val AddressPF = binding.prEmailAddress.text.toString()
