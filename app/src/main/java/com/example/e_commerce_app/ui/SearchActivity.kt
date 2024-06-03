@@ -115,7 +115,7 @@ class SearchActivity : AppCompatActivity() {
                                     selectedItem.id, selectedItem.product_name,
                                     null.toString(), 0,
                                     null.toString(), 0, 0, 0,
-                                    null.toString(), null, null, null.toString(), null.toString(),null,null
+                                    null.toString(), null, null, null.toString(), null.toString(), null, null
                                 )
                                 dataStoreManager.storeCurrentID(product)
                             }

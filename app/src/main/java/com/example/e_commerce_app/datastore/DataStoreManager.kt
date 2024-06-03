@@ -29,6 +29,8 @@ class DataStoreManager(context: Context) {
         val NameCurrentProduct = stringPreferencesKey("NAME_CURRENT_PRODUCT")
         val PriceCurrentProduct = intPreferencesKey("PRICE_CURRENT_PRODUCT")
         val idCategoryCurrent = intPreferencesKey("CATEGORY_CURRENT_PRODUCT")
+
+        val idCategorySelected = intPreferencesKey("ID_CATEGORY_SELECTED")
     }
 
     // store user's attributes needed
@@ -60,11 +62,11 @@ class DataStoreManager(context: Context) {
         mDataStore.edit { pref ->
             pref[idCurrentProduct] = product.id!!
             pref[NameCurrentProduct] = product.product_name
-            pref[PriceCurrentProduct] =product.product_price
+            pref[PriceCurrentProduct] = product.product_price
         }
     }
 
-    suspend fun getCurrentID() = mDataStore.data.map { pref->
+    suspend fun getCurrentID() = mDataStore.data.map { pref ->
         pref[idCurrentProduct]?.let {
             pref[NameCurrentProduct]?.let { it1 ->
                 pref[PriceCurrentProduct]?.let { it2 ->
@@ -89,23 +91,26 @@ class DataStoreManager(context: Context) {
             }
         }
     }
-    suspend fun storeCurrentIDCategory(id: Int){
+
+    suspend fun storeCurrentIDCategory(id: Int) {
         mDataStore.edit { pref ->
             pref[idCategoryCurrent] = id
         }
     }
-    suspend fun getCurrentIDCategory() = mDataStore.data.map { pref->
+
+    suspend fun getCurrentIDCategory() = mDataStore.data.map { pref ->
         pref[idCategoryCurrent]
     }
 
-    suspend fun storeShop(shop: Shop){
-        mDataStore.edit {pref->
+    suspend fun storeShop(shop: Shop) {
+        mDataStore.edit { pref ->
             pref[idShopCurrentUSer] = shop!!.id
             pref[nameShopCurrentUser] = shop.shop_name!!
             pref[addressShopCurrentUser] = shop.Address!!
         }
     }
-    suspend fun getShop() = mDataStore.data.map { pref->
+
+    suspend fun getShop() = mDataStore.data.map { pref ->
         pref[idShopCurrentUSer]?.let {
             pref[idCurrentUser]?.let { it1 ->
                 Shop(
@@ -120,7 +125,15 @@ class DataStoreManager(context: Context) {
                 )
             }
         }
-
     }
 
+    suspend fun storeIdCategory(id: Int) {
+        mDataStore.edit { pref ->
+            pref[idCategorySelected] = id
+        }
+    }
+
+    suspend fun getIdCategory() = mDataStore.data.map { pref ->
+        pref[idCategorySelected]
+    }
 }

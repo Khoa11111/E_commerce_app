@@ -9,10 +9,8 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.ProductAdapter
-import com.example.e_commerce_app.ChooseVariantActivity
 import com.example.e_commerce_app.R
 import com.example.e_commerce_app.databinding.ActivityDetailPrBinding
-import com.example.e_commerce_app.databinding.ActivityProfileBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
 import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
@@ -36,10 +34,11 @@ class DetailPrActivity : AppCompatActivity() {
             override fun onItemClick(product: Product, position: Int) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     Log.d("onItemClick", "onItemClick:${product} ")
-                    val product = Product(product.id,product.product_name,
-                        null.toString(),0,
-                        null.toString(),0,0,product.product_price,
-                        null.toString(),null,null, null.toString(), null.toString(),null,null
+                    val product = Product(
+                        product.id, product.product_name,
+                        null.toString(), 0,
+                        null.toString(), 0, 0, product.product_price,
+                        null.toString(), null, null, null.toString(), null.toString(), null, null
                     )
                     dataStoreManager.storeCurrentID(product)
                     val intent = Intent(this@DetailPrActivity, DetailPrActivity::class.java)
@@ -51,31 +50,31 @@ class DetailPrActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityDetailPrBinding.inflate(layoutInflater)
+        binding = ActivityDetailPrBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         dataStoreManager = DataStoreProvider.getInstance(this)
 
-        binding.add1.setOnClickListener{
-            val quanlity=binding.edtSlgCart.text.toString()
-            val intQuan:Int=quanlity.toInt()
-            val changeQuan=intQuan+1
+        binding.add1.setOnClickListener {
+            val quanlity = binding.edtSlgCart.text.toString()
+            val intQuan: Int = quanlity.toInt()
+            val changeQuan = intQuan + 1
             binding.edtSlgCart.setText(changeQuan.toString())
         }
-        binding.remove1.setOnClickListener{
-            val quanlity=binding.edtSlgCart.text.toString()
-            val intQuan:Int=quanlity.toInt()
-            val changeQuan=intQuan-1
+        binding.remove1.setOnClickListener {
+            val quanlity = binding.edtSlgCart.text.toString()
+            val intQuan: Int = quanlity.toInt()
+            val changeQuan = intQuan - 1
             binding.edtSlgCart.setText(changeQuan.toString())
         }
-        binding.imageButtonback.setOnClickListener{
+        binding.imageButtonback.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
 
-        binding.btnaddCart.setOnClickListener{
+        binding.btnaddCart.setOnClickListener {
             val intent = Intent(applicationContext, ChooseVariantActivity::class.java)
-            intent.putExtra("quanlity",binding.edtSlgCart.text.toString().toInt())
+            intent.putExtra("quanlity", binding.edtSlgCart.text.toString().toInt())
             startActivity(intent)
         }
 
@@ -85,35 +84,33 @@ class DetailPrActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun getDetailProductRun() {
         lifecycleScope.launch(Dispatchers.IO) {
-            dataStoreManager.getCurrentID().collect{
+            dataStoreManager.getCurrentID().collect {
                 getDetailProduct(it?.id.toString())
                 getVariant(it?.id.toString())
             }
         }
     }
 
-    fun getVariant(id: String){
+    fun getVariant(id: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitInstance.ProductApi.GetVariant(id)
                 if (response.isSuccessful && response.body() != null) {
                     withContext(Dispatchers.Main) {
                         Log.d("getVariant", "getVariant:${response} ")
-                        val  NameVariant= response.body()!!.variantData?.rows?.get(0)?.variant_name
-                        val  ImageVariant = response.body()!!.variantData?.rows?.get(0)?.variant_image
+                        val NameVariant = response.body()!!.variantData?.rows?.get(0)?.variant_name
+                        val ImageVariant = response.body()!!.variantData?.rows?.get(0)?.variant_image
 
 
-                        binding.NameVariant.text=NameVariant
+                        binding.NameVariant.text = NameVariant
 
                         val prefix1 = ImageVariant?.let { Utils.extractPrefix(it) }
                         binding.variantImg.setImageBitmap(prefix1?.let { Utils.decodeBase64ToBitmap(it) })
                     }
                 }
-            }catch (e: HttpException) {
+            } catch (e: HttpException) {
                 Toast.makeText(this@DetailPrActivity, "http error: ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             } catch (e: IOException) {
@@ -125,52 +122,51 @@ class DetailPrActivity : AppCompatActivity() {
 
 
     @SuppressLint("ResourceAsColor")
-    fun getDetailProduct(id:String){
+    fun getDetailProduct(id: String) {
         lifecycleScope.launch(Dispatchers.IO) {
-             try {
-                 val response = RetrofitInstance.ProductApi.getDetailPr(id)
-                 if (response.isSuccessful && response.body() != null) {
-                     withContext(Dispatchers.Main) {
-                         Log.d("getDetailProduct", "getDetailProduct:${response} ")
-                         val  NameProduct= response.body()!!.productData?.product_name
+            try {
+                val response = RetrofitInstance.ProductApi.getDetailPr(id)
+                if (response.isSuccessful && response.body() != null) {
+                    withContext(Dispatchers.Main) {
+                        Log.d("getDetailProduct", "getDetailProduct:${response} ")
+                        val NameProduct = response.body()!!.productData?.product_name
 //                    val  DecsProduct= response.body()!!.productData?.rows?.get(0)?.product_decs
-                         val  PriceProduct = response.body()!!.productData?.product_price
-                         val  ImageProduct = response.body()!!.productData?.product_image
+                        val PriceProduct = response.body()!!.productData?.product_price
+                        val ImageProduct = response.body()!!.productData?.product_image
 
-                         val NameShop = response.body()!!.productData?.shop?.shop_name
-                         val ImageShop = response.body()!!.productData?.shop?.Image_shop
-                         val statusShop= response.body()!!.productData?.shop?.status
-
-
-                         val prefix1 = ImageShop?.let { Utils.extractPrefix(it) }
-
-                         //set data shop
-                         Log.d("ShopImage", "getDetailProduct: ${prefix1}")
-                         binding.imgShopDetai.setImageBitmap(prefix1?.let { Utils.decodeBase64ToBitmap(it) })
-                         binding.namePRShop.text=NameShop
-                         if (statusShop=="1"){
-                             binding.colorStatus.setBackgroundColor(R.color.lightGreen)
-                             binding.CheckStatus.text= "Online"
-                         }else{
-                             binding.colorStatus.setBackgroundColor(R.color.red)
-                             binding.CheckStatus.text= "Offline"
-                         }
+                        val NameShop = response.body()!!.productData?.shop?.shop_name
+                        val ImageShop = response.body()!!.productData?.shop?.Image_shop
+                        val statusShop = response.body()!!.productData?.shop?.status
 
 
+                        val prefix1 = ImageShop?.let { Utils.extractPrefix(it) }
 
-                         //set data product
-                         binding.nameProduct.text = NameProduct
-                         binding.ProductPriceDT.text = PriceProduct.toString()
-                         binding.edtSlgCart.text ="1"
+                        //set data shop
+                        Log.d("ShopImage", "getDetailProduct: ${prefix1}")
+                        binding.imgShopDetai.setImageBitmap(prefix1?.let { Utils.decodeBase64ToBitmap(it) })
+                        binding.namePRShop.text = NameShop
+                        if (statusShop == "1") {
+                            binding.colorStatus.setBackgroundColor(R.color.lightGreen)
+                            binding.CheckStatus.text = "Online"
+                        } else {
+                            binding.colorStatus.setBackgroundColor(R.color.red)
+                            binding.CheckStatus.text = "Offline"
+                        }
 
 
-                         val prefix = ImageProduct?.let { Utils.extractPrefix(it) }
+                        //set data product
+                        binding.nameProduct.text = NameProduct
+                        binding.ProductPriceDT.text = PriceProduct.toString()
+                        binding.edtSlgCart.text = "1"
 
-                         binding.imageFiller1.setImageBitmap(prefix?.let { Utils.decodeBase64ToBitmap(it) })
 
-                         // This block executes only if the response is successful and has a body
-                     }
-                 }
+                        val prefix = ImageProduct?.let { Utils.extractPrefix(it) }
+
+                        binding.imageFiller1.setImageBitmap(prefix?.let { Utils.decodeBase64ToBitmap(it) })
+
+                        // This block executes only if the response is successful and has a body
+                    }
+                }
             } catch (e: HttpException) {
                 Toast.makeText(this@DetailPrActivity, "http error: ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch

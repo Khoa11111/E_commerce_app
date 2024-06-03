@@ -37,10 +37,11 @@ class HomeFragment : Fragment() {
             override fun onItemClick(product: Product, position: Int) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     Log.d("onItemClick", "onItemClick:${product} ")
-                    val product = Product(product.id,product.product_name,
-                        null.toString(),0,
-                        null.toString(),0,0, product.product_price,
-                        null.toString(),null,null, null.toString(), null.toString(),null,null
+                    val product = Product(
+                        product.id, product.product_name,
+                        null.toString(), 0,
+                        null.toString(), 0, 0, product.product_price,
+                        null.toString(), null, null, null.toString(), null.toString(), null, null
                     )
                     dataStoreManager.storeCurrentID(product)
                     val intent = Intent(context, DetailPrActivity::class.java)
@@ -61,7 +62,7 @@ class HomeFragment : Fragment() {
 
         dataStoreManager = DataStoreProvider.getInstance(requireContext())
 
-        binding.CartBtn.setOnClickListener{
+        binding.CartBtn.setOnClickListener {
             val intent = Intent(requireContext(), CartActivity::class.java)
             startActivity(intent)
         }
@@ -142,10 +143,14 @@ class HomeFragment : Fragment() {
                     }
                 }
             } catch (e: HttpException) {
-                Toast.makeText(requireActivity(), "http error ${e.message}", Toast.LENGTH_LONG).show()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireActivity(), "http error ${e.message}", Toast.LENGTH_LONG).show()
+                }
                 return@launch
             } catch (e: IOException) {
-                Toast.makeText(requireActivity(), "app error ${e.message}", Toast.LENGTH_LONG).show()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireActivity(), "app error ${e.message}", Toast.LENGTH_LONG).show()
+                }
                 return@launch
             }
         }

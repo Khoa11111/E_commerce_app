@@ -1,6 +1,7 @@
 package com.example.e_commerce_app.Adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.e_commerce_app.model.Cart
@@ -15,14 +16,14 @@ class CartAdapter(val onClick: ProductCartonClick) : ListAdapter<Cart, CartAdapt
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Cart) {
             binding.apply {
-                val StringSplit= item.productCartData?.product_image
+                val StringSplit = item.productCartData?.product_image
                 val prefix = Utils.extractPrefix(StringSplit.toString())
                 binding.imgCartt.setImageBitmap(Utils.decodeBase64ToBitmap(prefix))
-                binding.nameCartt.text= item.productCartData!!.product_name
-                binding.giaCartt.text= item.price.toString()
-                binding.edtSlCartt.text=item.soLuongMua.toString()
+                binding.nameCartt.text = item.productCartData!!.product_name
+                binding.giaCartt.text = item.price.toString()
+                binding.edtSlCartt.text = item.soLuongMua.toString()
                 root.setOnClickListener {
-                    onclick.onItemClick(item, position)
+                    onclick.onItemClick(binding.checkboxCartt, item, position)
                 }
             }
         }
@@ -49,7 +50,7 @@ class CartAdapter(val onClick: ProductCartonClick) : ListAdapter<Cart, CartAdapt
     }
 
     interface ProductCartonClick {
-        fun onItemClick(cart: Cart, position: Int)
+        fun onItemClick(view: View, cart: Cart, position: Int)
     }
 
 }

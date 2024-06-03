@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ChooseVariantActivity"
+        tools:context=".ui.ChooseVariantActivity"
         >
 
     <ScrollView
@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
+
             <TextView
                     android:visibility="gone"
                     android:id="@+id/id_Shop"
@@ -27,6 +28,7 @@
                     android:layout_height="wrap_content"
                     tools:ignore="MissingConstraints"
                     />
+
             <TextView
                     android:visibility="gone"
                     android:id="@+id/id_variant"
@@ -34,6 +36,7 @@
                     android:layout_height="wrap_content"
                     tools:ignore="MissingConstraints"
                     />
+
             <TextView
                     android:visibility="gone"
                     android:id="@+id/id_Product"
@@ -41,6 +44,7 @@
                     android:layout_height="wrap_content"
                     tools:ignore="MissingConstraints"
                     />
+
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +69,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="20dp"
                     />
-
 
 
             <TextView

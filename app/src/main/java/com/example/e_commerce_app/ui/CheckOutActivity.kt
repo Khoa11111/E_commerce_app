@@ -1,21 +1,23 @@
 package com.example.e_commerce_app.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.CartAdapter
-import com.example.e_commerce_app.Adapter.VariantAdapter
 import com.example.e_commerce_app.R
-import com.example.e_commerce_app.databinding.ActivityCartBinding
+import com.example.e_commerce_app.databinding.ActivityCheckOutBinding
 import com.example.e_commerce_app.datastore.DataStoreManager
 import com.example.e_commerce_app.datastore.DataStoreProvider
-import com.example.e_commerce_app.model.*
+import com.example.e_commerce_app.model.Cart
+import com.example.e_commerce_app.model.Product
+import com.example.e_commerce_app.model.ProductCartData
+import com.example.e_commerce_app.model.Shop
+import com.example.e_commerce_app.requestModel.ItemRequest
+import com.example.e_commerce_app.requestModel.OrderRequest
 import com.example.e_commerce_app.util.RetrofitInstance
 import com.example.e_commerce_app.util.Utils
 import kotlinx.coroutines.Dispatchers
@@ -24,84 +26,59 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-class CartActivity : AppCompatActivity() {
-    lateinit var binding: ActivityCartBinding
+class CheckOutActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityCheckOutBinding
     lateinit var cartAdapter: CartAdapter
     lateinit var dataStoreManager: DataStoreManager
 
     private val ProductCartonClick by lazy {
         object : CartAdapter.ProductCartonClick {
             override fun onItemClick(view: View, cart: Cart, position: Int) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    dataStoreManager.getCurrentUser().collect {
-                        try {
-                            val response = RetrofitInstance.CartApi.DeleteCart(
-                                it.id.toString(),
-                                cart.variant_id.toString()
-                            )
-                            if (response.body()!!.err.toString() == "0") {
-                                withContext(Dispatchers.Main) {
-                                    val alertDialog = AlertDialog.Builder(this@CartActivity)
-                                        .setTitle("Delete Cart!")
-                                        .setMessage(
-                                            "\n" +
-                                                    "Delete product success!!"
-                                        )
-                                        .setPositiveButton("OK") { dialog, which ->
-                                            // Handle positive button click
-                                            dialog.dismiss()
-                                            val intent = Intent(applicationContext, CartActivity::class.java)
-                                            startActivity(intent)
-                                        }
-                                        .create()
-                                    alertDialog.show()
-                                }
-                            } else {
-                                withContext(Dispatchers.Main) {
-                                    val alertDialog = AlertDialog.Builder(this@CartActivity)
-                                        .setTitle("Delete Cart!")
-                                        .setMessage(
-                                            "\n" +
-                                                    "Delete product failed!!"
-                                        )
-                                        .setPositiveButton("OK") { dialog, which ->
-                                            dialog.dismiss()
-                                            val intent = Intent(applicationContext, CartActivity::class.java)
-                                            startActivity(intent)
-                                        }
-                                        .create()
-                                    alertDialog.show()
-                                }
-                            }
-                        } catch (e: HttpException) {
-                            Toast.makeText(this@CartActivity, "http error: ${e.message}", Toast.LENGTH_LONG).show()
-                        } catch (e: IOException) {
-                            Toast.makeText(this@CartActivity, "app error: ${e.message}", Toast.LENGTH_LONG).show()
-                        }
-                    }
 
-                }
             }
+
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCartBinding.inflate(layoutInflater)
+        binding = ActivityCheckOutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dataStoreManager = DataStoreProvider.getInstance(this)
+
         getAllCartRun()
-
-        binding.btnBackMain.setOnClickListener {
-            finish()
-        }
-
-        binding.btnDatHang.setOnClickListener {
-            val intent = Intent(this, CheckOutActivity::class.java)
-            startActivity(intent)
-        }
+        Order()
     }
 
+    private fun groupProductsByShop(listProducts: List<Cart>): Map<Int, List<Cart>> {
+        return listProducts.groupBy { it.id_shop!! }
+    }
+
+
+    //
+    // Access products for a specific shop
+
+
+    private fun Order() {
+        binding.btnOrderComplete.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val cartAdapter: CartAdapter = binding.rcvOrder.adapter as CartAdapter
+                val cartList = cartAdapter.currentList
+                if (cartList.size != 0) {
+                    val groupedProducts = groupProductsByShop(cartList)
+                    for (shopId in groupedProducts.keys) {
+                        val shopProducts = groupedProducts[shopId]!!
+                        for (cart in shopProducts) {
+                            Log.d(
+                                Utils.TAG,
+                                "shopProducts: quantity = ${cart.soLuongMua} : id variant: ${cart.variant_id}"
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     fun getAllCartRun() {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -166,8 +143,8 @@ class CartActivity : AppCompatActivity() {
 
                         withContext(Dispatchers.Main) {
                             cartAdapter.submitList(listCart)
-                            binding.rvCart.apply {
-                                layoutManager = GridLayoutManager(this@CartActivity, 1)
+                            binding.rcvOrder.apply {
+                                layoutManager = GridLayoutManager(this@CheckOutActivity, 1)
                                 setHasFixedSize(true)
                                 adapter = cartAdapter
                             }
@@ -175,13 +152,12 @@ class CartActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: HttpException) {
-                Toast.makeText(this@CartActivity, "http error: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@CheckOutActivity, "http error: ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             } catch (e: IOException) {
-                Toast.makeText(this@CartActivity, "app error: ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@CheckOutActivity, "app error: ${e.message}", Toast.LENGTH_LONG).show()
                 return@launch
             }
         }
     }
-
 }

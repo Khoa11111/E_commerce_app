@@ -117,11 +117,11 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:background="@drawable/bg_transendent"
-                            android:drawableStart="@drawable/icon_email"
+                            android:drawableStart="@drawable/icon_address"
                             android:drawableEnd="@drawable/icon_edit"
                             android:drawablePadding="15dp"
                             android:gravity="center_vertical"
-                            android:hint="Email Address"
+                            android:hint="Address"
                             android:textSize="15dp"
                             android:textStyle="bold"
                             >

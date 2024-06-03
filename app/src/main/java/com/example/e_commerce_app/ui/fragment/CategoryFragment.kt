@@ -1,5 +1,6 @@
 package com.example.e_commerce_app.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.e_commerce_app.Adapter.CategoryAdapter
 import com.example.e_commerce_app.databinding.FragmentCategoryBinding
+import com.example.e_commerce_app.datastore.DataStoreManager
+import com.example.e_commerce_app.datastore.DataStoreProvider
 import com.example.e_commerce_app.model.Category
+import com.example.e_commerce_app.ui.ProductByCategoryActivity
 import com.example.e_commerce_app.util.RetrofitInstance
 import kotlinx.coroutines.*
 import retrofit2.HttpException
@@ -20,10 +24,15 @@ class CategoryFragment : Fragment() {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var dataStoreManager: DataStoreManager
     private val categoryOnItemClick by lazy {
         object : CategoryAdapter.CategoryOnItemClick {
             override fun onItemClick(category: Category, position: Int) {
-                Toast.makeText(requireContext(), category.category_name, Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch {
+                    dataStoreManager.storeIdCategory(category.id)
+                }
+                val intent = Intent(requireContext(), ProductByCategoryActivity::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -34,6 +43,7 @@ class CategoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
+        dataStoreManager = DataStoreProvider.getInstance(requireContext())
 
         setupCategoryRecycler()
 
