@@ -21,6 +21,8 @@ class DataStoreManager(context: Context) {
         val idCurrentUser = intPreferencesKey("ID_CURRENT_USER")
         val emailCurrentUser = stringPreferencesKey("EMAIL_CURRENT_USER")
         val roleCurrentUser = stringPreferencesKey("ROLE_CURRENT_USER")
+        val nameCurrentUser= stringPreferencesKey("NAME_CURRENT_USER")
+
         val idShopCurrentUSer = intPreferencesKey("ID_SHOP_CURRENT_USER")
         val nameShopCurrentUser = stringPreferencesKey("NAME_SHOP_CURRENT_USER")
         val addressShopCurrentUser = stringPreferencesKey("ADDRESS_SHOP_CURRENT_USER")
@@ -39,14 +41,14 @@ class DataStoreManager(context: Context) {
             pref[idCurrentUser] = user.id!!
             pref[emailCurrentUser] = user.email
             pref[roleCurrentUser] = user.role!!
-
+            pref[nameCurrentUser] = user.Name!!
         }
     }
 
     suspend fun getCurrentUser() = mDataStore.data.map { pref ->
         User(
             pref[idCurrentUser],
-            null,
+            pref[nameCurrentUser],
             null,
             pref[emailCurrentUser]!!,
             null,

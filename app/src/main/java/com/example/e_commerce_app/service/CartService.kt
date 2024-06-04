@@ -2,6 +2,7 @@ package com.example.e_commerce_app.service
 
 import com.example.e_commerce_app.model.Cart
 import com.example.e_commerce_app.model.ResponseData
+import com.example.e_commerce_app.requestModel.OrderRequest
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -14,4 +15,7 @@ interface CartService {
 
     @DELETE("/api/v1/cartlist/remove-cart/{id}/{idVariant}")
     suspend fun DeleteCart(@Path("id")id: String,@Path("idVariant")idVariant:String):Response<ResponseData>
+
+    @POST("/api/v1/tbl_order")
+    suspend fun Order(@Body orderRequest: OrderRequest): Response<ResponseData>
 }

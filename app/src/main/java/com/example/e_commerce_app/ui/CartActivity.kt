@@ -118,7 +118,7 @@ class CartActivity : AppCompatActivity() {
             try {
                 val response = RetrofitInstance.CartApi.GetCart(id)
                 if (response.isSuccessful && response.body() != null) {
-                    Log.d("getAllCart", "getAllCart: ${response.body()}")
+//                    Log.d("getAllCart", "getAllCart: ${response.body()}")
                     if (response.body()!!.err.toString() == "0") {
                         val listCart = response.body()!!.dataCart?.rows?.map {
                             val shop = it.shop?.let { it1 ->

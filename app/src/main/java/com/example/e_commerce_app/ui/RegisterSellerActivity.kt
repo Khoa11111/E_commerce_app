@@ -126,7 +126,7 @@ class RegisterSellerActivity : AppCompatActivity() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        val intent = Intent(applicationContext, RGSellerOtpActivity::class.java)
+                        val intent = Intent(this@RegisterSellerActivity, RGSellerOtpActivity::class.java)
                         startActivity(intent)
                     }
                 }

@@ -80,12 +80,13 @@ class LoginFragment : Fragment(), OnClickListener {
                 val email = response.body()!!.userData!!.email
                 val role = response.body()!!.userData!!.role
                 val shop = response.body()!!.userData!!.shop
+                val name = response.body()!!.userData?.Name
                 Log.d("CheckLogin", "login: ${shop}")
                 if (id != null && role != null) {
                     dataStoreManager.storeCurrenUser(
                         User(
                             id,
-                            null,
+                            name,
                             null,
                             email,
                             null,
